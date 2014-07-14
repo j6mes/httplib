@@ -127,7 +127,7 @@ namespace Redslide.HttpLib
             }
 
 
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Get, b.Uri.ToString(), new { }, successCallback, failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Get, b.Uri.ToString(), null, new { }, successCallback, failCallback);
         }
         #endregion
 
@@ -226,7 +226,7 @@ namespace Redslide.HttpLib
             }
 
 
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Head, b.Uri.ToString(), new { }, successCallback, failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Head, b.Uri.ToString(), null, new { }, successCallback, failCallback);
         }
         #endregion
 
@@ -296,7 +296,7 @@ namespace Redslide.HttpLib
         /// <param name="successCallback">Function that is called on success</param>
         public static void Patch(string url, object parameters, Action<string> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, parameters, StreamToStringCallback(successCallback), (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, null, parameters, StreamToStringCallback(successCallback), (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -311,7 +311,7 @@ namespace Redslide.HttpLib
         /// <param name="successCallback">Function that is called on success</param>
         public static void Patch(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, parameters, successCallback, (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, null, parameters, successCallback, (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -327,7 +327,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Patch(string url, object parameters, Action<string> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, parameters, StreamToStringCallback(successCallback), failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, null, parameters, StreamToStringCallback(successCallback), failCallback);
         }
 
         /// <summary>
@@ -339,7 +339,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Patch(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, parameters, successCallback, failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Patch, url, null, parameters, successCallback, failCallback);
         }
         #endregion
 
@@ -352,7 +352,7 @@ namespace Redslide.HttpLib
         /// <param name="successCallback">Function that is called on success</param>
         public static void Put(string url, object parameters, Action<string> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, parameters, StreamToStringCallback(successCallback), (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, null, parameters, StreamToStringCallback(successCallback), (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -367,7 +367,7 @@ namespace Redslide.HttpLib
         /// <param name="successCallback">Function that is called on success</param>
         public static void Put(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, parameters, successCallback, (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, null, parameters, successCallback, (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -383,7 +383,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Put(string url, object parameters, Action<string> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, parameters, StreamToStringCallback(successCallback), failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, null, parameters, StreamToStringCallback(successCallback), failCallback);
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Put(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, parameters, successCallback, failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Put, url, null, parameters, successCallback, failCallback);
         }
         #endregion
 
@@ -409,7 +409,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Delete(string url,object parameters, Action<string> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, parameters, StreamToStringCallback(successCallback), (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, null, parameters, StreamToStringCallback(successCallback), (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -425,7 +425,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Delete(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, parameters, successCallback, (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, null, parameters, successCallback, (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -441,7 +441,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Delete(string url, object parameters, Action<string> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, parameters, StreamToStringCallback(successCallback), failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, null, parameters, StreamToStringCallback(successCallback), failCallback);
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Delete(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, parameters, successCallback, failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Delete, url, null, parameters, successCallback, failCallback);
         }
         #endregion
 
@@ -702,10 +702,18 @@ namespace Redslide.HttpLib
 
                 if (headers != null)
                 {
+                   
+                    
                     foreach (var key in headers.Keys)
+
                     {
-                        request.Headers.Add(key, headers[key]);
+#if NETFX_CORE
+
+#else
+                        request.Headers.Add("");
+#endif
                     }
+
                 }
                 
                 
