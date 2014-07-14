@@ -285,6 +285,18 @@ namespace Redslide.HttpLib
         {
             MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters, successCallback, failCallback);
         }
+
+        /// <summary>
+        /// Performs a HTTP post request with parameters and a fail function
+        /// </summary>
+        /// <param name="url">Target url</param>
+        /// <param name="parameters">Array of parameters</param>
+        /// <param name="successCallback">Function that is called on success</param>
+        /// <param name="failCallback">Function that is called on failure</param>
+        public static void Post(string url, IDictionary<String,String> headers,object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
+        {
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headers, parameters, successCallback, failCallback);
+        }
         #endregion
 
         #region PATCH
