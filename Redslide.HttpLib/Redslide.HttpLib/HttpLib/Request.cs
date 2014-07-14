@@ -271,7 +271,20 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Post(string url, object parameters, Action<string> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters,StreamToStringCallback(successCallback), failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters, StreamToStringCallback(successCallback), failCallback);
+        }
+
+
+        /// <summary>
+        /// Performs a HTTP post request with parameters and a fail function
+        /// </summary>
+        /// <param name="url">Target url</param>
+        /// <param name="parameters">Array of parameters</param>
+        /// <param name="successCallback">Function that is called on success</param>
+        /// <param name="failCallback">Function that is called on failure</param>
+        public static void Post(string url, object headers, object parameters, Action<string> successCallback, Action<WebException> failCallback)
+        {
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headers, parameters,StreamToStringCallback(successCallback), failCallback);
         }
 
         /// <summary>
@@ -293,7 +306,7 @@ namespace Redslide.HttpLib
         /// <param name="parameters">Array of parameters</param>
         /// <param name="successCallback">Function that is called on success</param>
         /// <param name="failCallback">Function that is called on failure</param>
-        public static void Post(string url, IDictionary<String,String> headers,object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
+        public static void Post(string url, object headers,object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
             MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headers, parameters, successCallback, failCallback);
         }
@@ -689,7 +702,7 @@ namespace Redslide.HttpLib
         }
 
 
-        private static void MakeRequest(string contentType, HttpVerb method, string url, IDictionary<String,String> headers, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
+        private static void MakeRequest(string contentType, HttpVerb method, string url, object headers, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
             if (parameters == null)
             {
@@ -715,14 +728,22 @@ namespace Redslide.HttpLib
                 if (headers != null)
                 {
                    
-                    
-                    foreach (var key in headers.Keys)
+                    PropertyInfo[] properties;
+                    #if NETFX_CORE
+                    properties = headers.GetType().GetTypeInfo().DeclaredProperties.ToArray();
+                    #else
+                    properties =  headers.GetType().GetProperties();
+                    #endif
 
+                
+
+                    foreach (var property in properties)
                     {
+                       
 #if NETFX_CORE
 
 #else
-                        request.Headers.Add("");
+                        request.Headers.Add(property.Name, property.GetValue(headers, null).ToString());  
 #endif
                     }
 
