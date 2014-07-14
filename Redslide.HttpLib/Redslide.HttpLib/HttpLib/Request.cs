@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -238,7 +239,7 @@ namespace Redslide.HttpLib
         /// <param name="successCallback">Function that is called on success</param>
         public static void Post(string url, object parameters, Action<string> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, parameters, StreamToStringCallback(successCallback), (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters, StreamToStringCallback(successCallback), (webEx) =>
                 {
                     ConnectFailed(webEx);
 
@@ -253,7 +254,7 @@ namespace Redslide.HttpLib
         /// <param name="successCallback">Function that is called on success</param>
         public static void Post(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, parameters, successCallback, (webEx) =>
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters, successCallback, (webEx) =>
             {
                 ConnectFailed(webEx);
 
@@ -270,7 +271,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Post(string url, object parameters, Action<string> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, parameters,StreamToStringCallback(successCallback), failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters,StreamToStringCallback(successCallback), failCallback);
         }
 
         /// <summary>
@@ -282,7 +283,7 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Post(string url, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, parameters, successCallback, failCallback);
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, null, parameters, successCallback, failCallback);
         }
         #endregion
 
@@ -676,7 +677,7 @@ namespace Redslide.HttpLib
         }
 
 
-        private static void MakeRequest(string contentType, HttpVerb method, string url, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
+        private static void MakeRequest(string contentType, HttpVerb method, string url, IDictionary<String,String> headers, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
             if (parameters == null)
             {
@@ -697,8 +698,16 @@ namespace Redslide.HttpLib
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
                 request.CookieContainer = cookies;
                 request.Method = method.ToString();
-                
 
+
+                if (headers != null)
+                {
+                    foreach (var key in headers.Keys)
+                    {
+                        request.Headers.Add(key, headers[key]);
+                    }
+                }
+                
                 
 
                 /*
