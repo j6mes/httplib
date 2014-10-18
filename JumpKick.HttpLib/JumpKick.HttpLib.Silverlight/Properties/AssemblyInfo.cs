@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Redslide.HttpLib.Tests")]
-[assembly: AssemblyDescription("Unit tests for the HttpLib library")]
+[assembly: AssemblyTitle("JumpKick.HttpLib.Silverlight")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("RedsSlide (James Thorne)")]
-[assembly: AssemblyProduct("Redslide.HttpLib")]
-[assembly: AssemblyCopyright("Copyright © RedSlide (James Thorne) 2012")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("JumpKick.HttpLib.Silverlight")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e5a8788c-9abf-4cfb-ab2a-fc18e984e236")]
+[assembly: Guid("c3449629-4640-4d50-9ada-b1668757cddc")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
+// You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
