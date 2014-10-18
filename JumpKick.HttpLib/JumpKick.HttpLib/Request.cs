@@ -1,11 +1,14 @@
 ﻿namespace JumpKick.HttpLib
 {
+    using JumpKick.HttpLib.Provider;
+
     public class Request
     {
         private string url;
         private Verb httpVerb;
-        private Header[] headers;
-        private object body;
+        private HeaderProvider headers;
+        private AuthenticationProvider auth;
+        private BodyProvider body;
 
 
 

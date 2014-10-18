@@ -39,8 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Header.cs" />
+    <Compile Include="Provider\AuthenticationProvider.cs" />
+    <Compile Include="Provider\BodyProvider.cs" />
+    <Compile Include="Provider\HeaderProvider.cs" />
+    <Compile Include="Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Http.cs" />
+    <Compile Include="Verb.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Builder\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
