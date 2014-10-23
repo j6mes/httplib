@@ -1,7 +1,7 @@
 ﻿namespace JumpKick.HttpLib.Provider
 {
-    interface HeaderProvider
+    public interface HeaderProvider
     {
-        public Header[] getHeaders();
+        Header[] GetHeaders();
     }
 }

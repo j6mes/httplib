@@ -1,8 +1,7 @@
 ﻿namespace JumpKick.HttpLib.Provider
 {
-    interface AuthenticationProvider
+    public interface AuthenticationProvider
     {
-
-        public Header GetAuthHeader();
+        Header GetAuthHeader();
     }
 }

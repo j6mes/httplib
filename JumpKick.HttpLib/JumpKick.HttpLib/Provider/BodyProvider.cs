@@ -2,10 +2,10 @@
 {
     using System.IO;
 
-    interface BodyProvider
+    public interface BodyProvider
     {
-        public string getContentType();
+        string GetContentType();
 
-        public MemoryStream getBody();
+        Stream GetBody();
     }
 }

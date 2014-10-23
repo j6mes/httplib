@@ -1,6 +1,6 @@
 ﻿namespace JumpKick.HttpLib
 {
-    class Header
+    public class Header
     {
 
         public Header(string name, string value)
