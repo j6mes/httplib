@@ -2,6 +2,7 @@
 {
     interface AuthenticationProvider
     {
+
         public Header GetAuthHeader();
     }
 }
