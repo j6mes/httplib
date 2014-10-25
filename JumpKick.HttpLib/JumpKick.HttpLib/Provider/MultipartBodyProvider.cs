@@ -29,10 +29,14 @@ namespace JumpKick.HttpLib.Provider
             files.Add(file);
         }
 
-
         public string GetContentType()
         {
             return string.Format("multipart/form-data, boundary={0}", boundary);
+        }
+
+        public string GetBoundary()
+        {
+            return boundary;
         }
 
         public Stream GetBody()
@@ -49,7 +53,7 @@ namespace JumpKick.HttpLib.Provider
             foreach (var property in parameters.GetType().GetProperties())
 #endif
             {
-                writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n",boundary,System.Uri.EscapeDataString(property.Name),System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
+                writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n",boundary,System.Uri.EscapeDataString(property.Name),System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
             }
 
             /*
@@ -101,8 +105,9 @@ namespace JumpKick.HttpLib.Provider
         {
             string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
             char[] chars = new char[length];
-            Random rd = new Random();
 
+            Random rd = new Random();
+         
             for (int i = 0; i < length; i++)
             {
                 chars[i] = allowedChars[rd.Next(0, allowedChars.Length)];
