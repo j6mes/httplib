@@ -39,6 +39,12 @@ namespace JumpKick.HttpLib.Provider
             return boundary;
         }
 
+        public void SetParameters(object parameters)
+        {
+            this.parameters = parameters;
+        }
+
+
         public Stream GetBody()
         {
             writer.Write("\n");
@@ -46,14 +52,17 @@ namespace JumpKick.HttpLib.Provider
             /*
              * Serialize parameters in multipart manner
              */
-
-#if NETFX_CORE
-            foreach (var property in parameters.GetType().GetTypeInfo().DeclaredProperties)
-#else
-            foreach (var property in parameters.GetType().GetProperties())
-#endif
+            if (parameters != null)
             {
-                writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n",boundary,System.Uri.EscapeDataString(property.Name),System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
+#if NETFX_CORE
+                foreach (var property in parameters.GetType().GetTypeInfo().DeclaredProperties)
+#else
+                foreach (var property in parameters.GetType().GetProperties())
+#endif
+                {
+                    writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n", boundary, System.Uri.EscapeDataString(property.Name), System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
+                    writer.Flush();
+                }
             }
 
             /*
@@ -77,7 +86,7 @@ namespace JumpKick.HttpLib.Provider
                  */
                 StreamReader sr = new StreamReader(file.Stream);
                 writer.Write(separator);
-
+                writer.Flush();
 
                 int bytesRead = 0;
                 byte[] buffer = new byte[4096];
@@ -92,7 +101,10 @@ namespace JumpKick.HttpLib.Provider
                  * Write the delimiter to the output buffer
                  */
                 writer.Write(closing, 0, closing.Length);
+                writer.Flush();
             }
+
+            contentstream.Seek(0, SeekOrigin.Begin);
             return contentstream;
 
         }

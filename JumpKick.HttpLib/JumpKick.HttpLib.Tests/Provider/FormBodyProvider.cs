@@ -17,8 +17,6 @@ namespace JumpKick.HttpLib.Tests.Provider
             provider = new FormBodyProvider();
         }
 
-
-
         [TestMethod]
         public void TestContentTypeIsForm()
         {
@@ -55,6 +53,13 @@ namespace JumpKick.HttpLib.Tests.Provider
             String content = r.ReadToEnd();
 
             Assert.AreEqual("a=b", content);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestNullParameterThrowsException()
+        {
+            provider.AddParameters(null);
         }
     }
 }

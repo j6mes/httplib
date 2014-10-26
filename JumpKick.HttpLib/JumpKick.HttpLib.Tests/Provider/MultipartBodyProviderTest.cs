@@ -1,19 +1,26 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JumpKick.HttpLib.Provider;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace JumpKick.HttpLib.Tests.Provider
 {
     [TestClass]
     public class MultipartBodyProviderTest
     {
-
+        Stream dummyFileStream;
         MultipartBodyProvider provider;
-
+        StreamWriter w;
         [TestInitialize]
         public void SetUp()
         {
             provider = new MultipartBodyProvider();
+            dummyFileStream = new MemoryStream();
+            w = new StreamWriter(dummyFileStream);
+            w.Write("file");
+            w.Flush();
+            dummyFileStream.Seek(0, SeekOrigin.Begin);
         }
 
         [TestMethod]
@@ -39,5 +46,65 @@ namespace JumpKick.HttpLib.Tests.Provider
         {
             Assert.AreEqual("multipart/form-data, boundary=" + provider.GetBoundary(), provider.GetContentType());
         }
+
+        [TestMethod]
+        public void TestBodyIsEmptyWithSingleItemQueryString()
+        {
+            provider.SetParameters(new { });
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+
+            Assert.AreEqual("", content);
+        }
+
+        [TestMethod]
+        public void TestBodyStartsWithNewLineWithParams()
+        {
+            provider.SetParameters(new { a="b"});
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+
+            Assert.IsTrue(content.StartsWith("\n"));
+        }
+
+
+        [TestMethod]
+        public void TestBodyContainsOneSeparatorPerFormItem()
+        {
+            provider.SetParameters(new { a = "b", c = "d", e = "f" });
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+
+    
+            Assert.AreEqual(3, Regex.Matches(content, provider.GetBoundary()).Count);
+        }
+
+
+        [TestMethod]
+        public void TestPostBodyContainsFileContents()
+        {
+            provider.AddFile(new NamedFileStream("a","b","c",dummyFileStream));
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+            Assert.IsTrue(content.Contains("file"));
+        }
+
+
+        [TestMethod]
+        public void TestPostBodyContainsOneSeparatorPerFile()
+        {
+            provider.AddFile(new NamedFileStream("a", "b", "c", dummyFileStream));
+            provider.AddFile(new NamedFileStream("a", "b", "c", dummyFileStream));
+
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+
+            /*
+             * 2 between each item in array
+             */
+            Assert.AreEqual(4, Regex.Matches(content, provider.GetBoundary()).Count);
+
+        }
+
     }
 }
