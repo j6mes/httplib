@@ -8,15 +8,20 @@
         private string username;
         private string password;
 
+        public BasicAuthenticationProvider(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
+
         public Header GetAuthHeader()
         {
-            return new Header("Authorization", GenerateAuthString(username,password));
+            return new Header("Authorization",  string.Format("Basic {0}",GenerateAuthString(username,password)));
         }
 
         public static string GenerateAuthString(string username, string password) 
         {
-            string authstring = string.Format("{0}:{1}", username, password);
-            return string.Format("Basic {0}", Convert.ToBase64String(Encoding.ASCII.GetBytes(authstring)));
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("{0}:{1}", username, password)));
         }
     }
 }
