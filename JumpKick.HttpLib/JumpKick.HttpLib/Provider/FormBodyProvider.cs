@@ -24,12 +24,14 @@ namespace JumpKick.HttpLib.Provider
 
         public Stream GetBody()
         {
+            contentstream.Seek(0,SeekOrigin.Begin);
             return contentstream;
         }
 
-        public void AddParamters(object parameters)
+        public void AddParameters(object parameters)
         {
             writer.Write(SerializeQueryString(parameters));
+            writer.Flush();
         }
 
         public static string SerializeQueryString(object parameters)
