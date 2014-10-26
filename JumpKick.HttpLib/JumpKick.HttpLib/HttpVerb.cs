@@ -1,6 +1,6 @@
 ﻿namespace JumpKick.HttpLib
 {
-    public enum Verb
+    public enum HttpVerb
     {
         Get,
         Head,
