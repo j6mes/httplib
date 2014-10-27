@@ -66,7 +66,7 @@
         }
 
 
-        private static AsyncCallback ProcessCallback(Action<WebHeaderCollection, Stream> success, Action<WebException> fail)
+        protected AsyncCallback ProcessCallback(Action<WebHeaderCollection, Stream> success, Action<WebException> fail)
         {
             return new AsyncCallback((callbackResult) =>
             {
