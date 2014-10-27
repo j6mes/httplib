@@ -7,6 +7,11 @@
         Post,
         Put,
         Patch,
-        Delete
+        Delete,
+        Options
     }
+
+
+
+
 }

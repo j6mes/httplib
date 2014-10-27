@@ -8,35 +8,43 @@
 
     public class Request
     {
-        private string url;
-        private HttpVerb method;
-        private HeaderProvider headers;
-        private AuthenticationProvider auth;
-        private BodyProvider body;
-        private static CookieContainer cookies = new CookieContainer();
-        private Action<WebHeaderCollection, Stream> successCallback;
-        private Action<WebException> failCallback;
+        protected string url;
+        protected HttpVerb method = HttpVerb.Get;
+        protected HeaderProvider headers;
+        protected AuthenticationProvider auth;
+        protected BodyProvider body;
+        protected static CookieContainer cookies = new CookieContainer();
+        protected Action<WebHeaderCollection, Stream> successCallback;
+        protected Action<WebException> failCallback;
 
         public void Go()
         {
 
         }
 
+        public HttpVerb GetMethod()
+        {
+            return method;
+        }
 
-        private void MakeRequest()
+        protected HttpWebRequest GetWebRequest(string url)
+        {
+            return (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+        }
+
+        protected void MakeRequest()
         {
             if (string.IsNullOrWhiteSpace(url))
             {
-                throw new ArgumentException("url is empty");
+                throw new ArgumentNullException("url is empty");
             }
-
 
             try
             {
                 /*
                  * Create new Request
                  */
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+                HttpWebRequest request = this.GetWebRequest(url);
                 request.CookieContainer = cookies;
                 request.Method = method.ToString().ToUpper();
 
