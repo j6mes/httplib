@@ -68,7 +68,16 @@ namespace JumpKick.HttpLib.Tests
 
             protected override HttpWebRequest GetWebRequest(string url)
             {
+                if(this.webReq==null)
+                {
+                    this.webReq = base.GetWebRequest(url);
+                }
                 return this.webReq;
+            }
+
+            public HttpWebRequest WebRequest
+            {
+                get { return this.webReq; }
             }
         }
 
@@ -170,13 +179,15 @@ namespace JumpKick.HttpLib.Tests
         public void TestDefaultMethodIsGet()
         {
             Request r = new Request();
-            r.GetMethod();
+            Assert.AreEqual(HttpVerb.Get,r.GetMethod());
         }
 
-        public void TestRequestCreatesNewRequest()
+        [TestMethod]
+        public void TestRequestCreatesNewRequestwithInputtedUri()
         {
-            RequestWrapper r = new RequestWrapper(this.webRequestMock.Object);
-
+            RequestWrapper r = new RequestWrapper();
+            r.MakeRequest(HttpVerb.Get, "http://test.com", null, null, null);
+            Assert.AreEqual(new Uri("http://test.com").AbsoluteUri, r.WebRequest.RequestUri.AbsoluteUri);
         }
 
         //Test URL assignment

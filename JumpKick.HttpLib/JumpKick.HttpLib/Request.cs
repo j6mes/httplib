@@ -27,7 +27,7 @@
             return method;
         }
 
-        protected HttpWebRequest GetWebRequest(string url)
+        protected virtual HttpWebRequest GetWebRequest(string url)
         {
             return (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
         }
