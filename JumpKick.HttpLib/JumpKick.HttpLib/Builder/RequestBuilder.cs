@@ -222,6 +222,11 @@ namespace JumpKick.HttpLib.Builder
             return this;
         }
 
+        public ActionProvider GetAction()
+        {
+            return actionProvider;
+        }
+
         #endregion
   
         public void Go()
@@ -253,5 +258,12 @@ namespace JumpKick.HttpLib.Builder
 
         public HttpVerb Method { get { return method; } }
         public String Url { get { return url; } }
+
+
+
+        public Action<WebHeaderCollection,Stream> GetOnSuccess()
+        {
+            return this.success;
+        }
     }
 }

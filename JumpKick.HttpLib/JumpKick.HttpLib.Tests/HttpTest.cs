@@ -42,15 +42,15 @@ namespace JumpKick.HttpLib.Tests
         [TestMethod]
         public void TestPatchMethodReturnsRequestWithPatchType()
         {
-            RequestBuilder b = Http.Oatch("a");
-            Assert.AreEqual(HttpVerb.Head, b.Method);
+            RequestBuilder b = Http.Patch("a");
+            Assert.AreEqual(HttpVerb.Patch, b.Method);
         }
 
         [TestMethod]
         public void TestDeleteMethodReturnsRequestWithDeleteType()
         {
             RequestBuilder b = Http.Delete("a");
-            Assert.AreEqual(HttpVerb.Head, b.Method);
+            Assert.AreEqual(HttpVerb.Delete, b.Method);
         }
 
         [TestMethod]
