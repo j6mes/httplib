@@ -250,5 +250,8 @@ namespace JumpKick.HttpLib.Builder
 
 
 
+
+        public HttpVerb Method { get { return method; } }
+        public String Url { get { return url; } }
     }
 }
