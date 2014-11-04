@@ -182,9 +182,34 @@ namespace JumpKick.HttpLib.Builder
 
 
         public RequestBuilder OnSuccess(Action<WebHeaderCollection, Stream> action)
-        {        
+        {
+            this.success = action;
             return this;
         }
+
+        public RequestBuilder DownloadTo(String filePath)
+        {
+            this.success = (headers, result) =>
+                {
+                    FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
+                    result.CopyTo(fs);
+                    fs.Close();
+                };
+            return this;
+        }
+
+
+        public RequestBuilder AppendTo(String filePath)
+        {
+            this.success = (headers, result) =>
+            {
+                FileStream fs = new FileStream(filePath, FileMode.Append);
+                result.CopyTo(fs);
+                fs.Close();
+            };
+            return this;
+        }
+
 
         public RequestBuilder OnFail(Action<WebException> action)
         {
@@ -205,7 +230,13 @@ namespace JumpKick.HttpLib.Builder
         
         public void Go()
         { 
-            
+            /*
+             * If an actionprovider has not been set, we create one.
+             */
+            if(this.actionProvider == null)
+            {
+                this.actionProvider = new SettableActionProvider(success, fail);
+            }
         }
 
 
