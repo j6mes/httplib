@@ -90,8 +90,7 @@ namespace JumpKick.HttpLib.Builder
             }
 
             bodyProvider.SetParameters(parameters);
-            this.bodyProvider = bodyProvider;
-            return this;
+            return this.Body(bodyProvider);
         }
 
 
@@ -105,8 +104,7 @@ namespace JumpKick.HttpLib.Builder
             FormBodyProvider bodyProvider = new FormBodyProvider();
             bodyProvider.AddParameters(body);
 
-            this.bodyProvider = bodyProvider;
-            return this;
+            return this.Body(bodyProvider);
         }
 
 
@@ -115,39 +113,38 @@ namespace JumpKick.HttpLib.Builder
             FormBodyProvider bodyProvider = new FormBodyProvider();
             bodyProvider.AddParameters(body);
 
-            this.bodyProvider = bodyProvider;
-            return this;
+            return this.Body(bodyProvider);
         }
 
         public RequestBuilder Body(Stream stream)
         {
-            this.bodyProvider = new StreamBodyProvider(stream);
-            return this;
+            return this.Body(new StreamBodyProvider(stream));
         }
 
         public RequestBuilder Body(String contentType, Stream stream)
         {
-            this.bodyProvider = new StreamBodyProvider(contentType, stream);
-            return this;
+            return this.Body(new StreamBodyProvider(contentType, stream));
         }
 
 
         public RequestBuilder Body(String text)
         {
-            this.bodyProvider = new TextBodyProvider(text);
-            return this;
+            return this.Body(new TextBodyProvider(text));
         }
 
         public RequestBuilder Body(String contentType, String text)
         {
-            this.bodyProvider = new TextBodyProvider(contentType, text);
-            return this;
+            return this.Body(new TextBodyProvider(contentType, text));
         }
 
 
 
         public RequestBuilder Body(BodyProvider provider)
         {
+            if(this.method == HttpVerb.Head || this.method==HttpVerb.Get)
+            {
+                throw new InvalidOperationException("Cannot set the body of a GET or HEAD request");
+            }
             this.bodyProvider = provider;
             return this;
         }
