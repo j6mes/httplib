@@ -2,6 +2,7 @@
 namespace JumpKick.HttpLib.Provider
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
     using System.Text;
@@ -33,6 +34,23 @@ namespace JumpKick.HttpLib.Provider
             writer.Write(SerializeQueryString(parameters));
             writer.Flush();
         }
+
+        public void AddParameters(IDictionary<String,String> parameters)
+        {
+            int i = 0;
+            foreach (var property in parameters)
+            {
+                writer.Write(property.Key + "=" + System.Uri.EscapeDataString(property.Value));
+
+                if (++i < parameters.Count)
+                {
+                    writer.Write("&");
+                }
+            }
+
+            writer.Flush();
+        }
+
 
         public static string SerializeQueryString(object parameters)
         {

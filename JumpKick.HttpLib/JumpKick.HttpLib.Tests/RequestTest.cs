@@ -75,6 +75,18 @@ namespace JumpKick.HttpLib.Tests
                 return this.webReq;
             }
 
+            protected override void ExecuteRequestWithBody(HttpWebRequest req)
+            {
+
+            }
+
+
+            protected override void ExecuteRequestWithoutBody(HttpWebRequest req)
+            {
+
+            }
+
+
             public HttpWebRequest WebRequest
             {
                 get { return this.webReq; }
@@ -188,6 +200,16 @@ namespace JumpKick.HttpLib.Tests
             RequestWrapper r = new RequestWrapper();
             r.MakeRequest(HttpVerb.Get, "http://test.com", null, null, null);
             Assert.AreEqual(new Uri("http://test.com").AbsoluteUri, r.WebRequest.RequestUri.AbsoluteUri);
+        }
+
+        [TestMethod]
+        public void TestMethodIsPassedToHttpRequest()
+        {
+            webRequestMock.SetupSet(req => req.Method=It.IsAny<String>()).Verifiable();
+            RequestWrapper r = new RequestWrapper(webRequestMock.Object);
+            r.MakeRequest(HttpVerb.Head, "http://test.com", null, null, null);
+            webRequestMock.VerifySet(req => req.Method = It.Is<String>(s => s.Equals("HEAD")));
+
         }
 
         //Test URL assignment

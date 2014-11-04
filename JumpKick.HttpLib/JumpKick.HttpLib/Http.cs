@@ -1,37 +1,38 @@
-﻿using System;
+﻿using JumpKick.HttpLib.Builder;
+using System;
 
 namespace JumpKick.HttpLib
 {
     public static class Http
     {
-        public static Request Get(string url)
+        public static RequestBuilder Get(string url)
         {
-            return new Request();
+            return new RequestBuilder(url, HttpVerb.Get);
         }
 
-        public static Request Head(string url)
+        public static RequestBuilder Head(string url)
         {
-            return new Request();
+            return new RequestBuilder(url, HttpVerb.Head);
         }
 
-        public static Request Post(string url)
+        public static RequestBuilder Post(string url)
         {
-            return new Request();
+            return new RequestBuilder(url, HttpVerb.Post);
         }
 
-        public static Request Put(string url)
+        public static RequestBuilder Put(string url)
         {
-            return new Request();
+            return new RequestBuilder(url, HttpVerb.Put);
         }
 
-        public static Request Patch(string url)
+        public static RequestBuilder Patch(string url)
         {
-            return new Request();
+            return new RequestBuilder(url, HttpVerb.Patch);
         }
 
-        public static Request Delete(string url)
+        public static RequestBuilder Delete(string url)
         {
-            return new Request();
+            return new RequestBuilder(url, HttpVerb.Delete);
         }
     }
 }

@@ -39,23 +39,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\RequestBuilder.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="NamedFileStream.cs" />
+    <Compile Include="Provider\ActionProvider.cs" />
     <Compile Include="Provider\AuthenticationProvider.cs" />
+    <Compile Include="Provider\TextBodyProvider.cs" />
+    <Compile Include="Provider\TextAuthenticationProvider.cs" />
     <Compile Include="Provider\BasicAuthenticationProvider.cs" />
     <Compile Include="Provider\BodyProvider.cs" />
+    <Compile Include="Provider\DictionaryHeaderProvider.cs" />
     <Compile Include="Provider\FormBodyProvider.cs" />
     <Compile Include="Provider\HeaderProvider.cs" />
+    <Compile Include="Provider\MultiHeaderProvider.cs" />
     <Compile Include="Provider\MultipartBodyProvider.cs" />
-    <Compile Include="Provider\RawBodyProvider.cs" />
+    <Compile Include="Provider\StreamBodyProvider.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="HttpVerb.cs" />
+    <Compile Include="RequestTemplate.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Builder\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

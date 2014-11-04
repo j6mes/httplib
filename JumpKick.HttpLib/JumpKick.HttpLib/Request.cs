@@ -14,12 +14,11 @@
         protected AuthenticationProvider auth;
         protected BodyProvider body;
         protected static CookieContainer cookies = new CookieContainer();
-        protected Action<WebHeaderCollection, Stream> successCallback;
-        protected Action<WebException> failCallback;
+        protected ActionProvider action;
 
         public void Go()
         {
-
+            MakeRequest();
         }
 
         public HttpVerb GetMethod()
@@ -50,27 +49,37 @@
 
                 if (method == HttpVerb.Get || method == HttpVerb.Head) 
                 {
-                    request.BeginGetResponse(ProcessCallback(successCallback, failCallback), request);
+                    ExecuteRequestWithoutBody(request);
                 } 
                 else 
                 {
-                    request.ContentType = body.GetContentType(); ;
-                    request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
-                    {
-                        HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
-                        body.GetBody().CopyTo(tmprequest.EndGetRequestStream(callbackResult));
-
-                        // Start the asynchronous operation to get the response
-                        tmprequest.BeginGetResponse(ProcessCallback(successCallback, failCallback), tmprequest);
-
-
-                    }), request);
+                    request.ContentType = body.GetContentType();
+                    ExecuteRequestWithBody(request);
                 }
             }
             catch (WebException webEx)
             {
-                failCallback(webEx);
+                action.Fail(webEx);
             }
+        }
+
+        protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
+        {
+            request.BeginGetResponse(ProcessCallback(action.Success, action.Fail), request);
+        }
+
+        protected virtual void ExecuteRequestWithBody(HttpWebRequest request)
+        {
+            request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
+            {
+                HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
+                body.GetBody().CopyTo(tmprequest.EndGetRequestStream(callbackResult));
+
+                // Start the asynchronous operation to get the response
+                tmprequest.BeginGetResponse(ProcessCallback(action.Success, action.Fail), tmprequest);
+
+
+            }), request);
         }
 
 
