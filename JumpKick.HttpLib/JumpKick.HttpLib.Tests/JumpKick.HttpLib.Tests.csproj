@@ -58,6 +58,7 @@
     <Compile Include="HttpTest.cs" />
     <Compile Include="NamedFileStreamTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\MultiHeaderProviderTest.cs" />
     <Compile Include="Provider\StreamBodyProviderTest.cs" />
     <Compile Include="Provider\TextAuthenticationProviderTest.cs" />
     <Compile Include="Provider\BasicAuthenticationProviderTest.cs" />
