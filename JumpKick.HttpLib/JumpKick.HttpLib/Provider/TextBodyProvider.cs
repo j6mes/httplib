@@ -25,6 +25,9 @@ namespace JumpKick.HttpLib.Provider
             writer = new StreamWriter(contentstream);
 
             this.contentType = contentType;
+
+            writer.Write(text);
+            writer.Flush();
         }
 
 

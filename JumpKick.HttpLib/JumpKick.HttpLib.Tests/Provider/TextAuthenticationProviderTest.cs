@@ -30,7 +30,7 @@ namespace JumpKick.HttpLib.Tests.Provider
         [TestMethod]
         public void TestGeneartesCorrectHeaderValue()
         {
-            Assert.AreEqual("Basic test",auth.GetAuthHeader().Value);
+            Assert.AreEqual("test",auth.GetAuthHeader().Value);
         }
 
 

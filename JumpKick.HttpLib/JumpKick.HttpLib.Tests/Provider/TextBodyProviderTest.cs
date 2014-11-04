@@ -35,6 +35,18 @@ namespace JumpKick.HttpLib.Tests.Provider
         }
 
         [TestMethod]
+        public void TestStreamIsOutput()
+        {
+            Assert.IsInstanceOfType(ctprovider.GetBody(), typeof(Stream));
+        }
+
+        [TestMethod]
+        public void TestStreamIsNotNull()
+        {
+            Assert.IsNotNull(ctprovider.GetBody());
+        }
+
+        [TestMethod]
         public void TestTextStreamContainsInputString()
         {
             StreamReader reader = new StreamReader(provider.GetBody());
