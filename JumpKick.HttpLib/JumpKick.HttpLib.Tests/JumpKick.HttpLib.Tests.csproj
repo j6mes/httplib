@@ -61,6 +61,7 @@
     <Compile Include="Provider\BasicAuthenticationProviderTest.cs" />
     <Compile Include="Provider\FormBodyProviderTest.cs" />
     <Compile Include="Provider\MultipartBodyProviderTest.cs" />
+    <Compile Include="Provider\TextBodyProviderTest.cs" />
     <Compile Include="RequestTest.cs" />
   </ItemGroup>
   <ItemGroup>
