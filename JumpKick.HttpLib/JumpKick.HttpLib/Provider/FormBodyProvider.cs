@@ -37,6 +37,12 @@ namespace JumpKick.HttpLib.Provider
 
         public void AddParameters(IDictionary<String,String> parameters)
         {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException("Parameters cannot be null");
+            }
+
+
             int i = 0;
             foreach (var property in parameters)
             {

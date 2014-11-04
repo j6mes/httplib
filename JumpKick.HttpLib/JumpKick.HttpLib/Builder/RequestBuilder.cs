@@ -145,6 +145,7 @@ namespace JumpKick.HttpLib.Builder
             {
                 throw new InvalidOperationException("Cannot set the body of a GET or HEAD request");
             }
+
             this.bodyProvider = provider;
             return this;
         }
@@ -222,9 +223,7 @@ namespace JumpKick.HttpLib.Builder
         }
 
         #endregion
-
-
-        
+  
         public void Go()
         { 
             /*
@@ -234,6 +233,18 @@ namespace JumpKick.HttpLib.Builder
             {
                 this.actionProvider = new SettableActionProvider(success, fail);
             }
+
+            Request req = new Request
+            {
+                Url = url,
+                Method = method,
+                Action = actionProvider,
+                Auth = authProvider,
+                Headers = headerProvider
+            };
+
+            req.Go();
+            
         }
 
 

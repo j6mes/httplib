@@ -16,15 +16,78 @@
         protected static CookieContainer cookies = new CookieContainer();
         protected ActionProvider action;
 
+        public Request()
+        {
+            
+        }
+
+
+        public String Url
+        {
+            set
+            {
+                this.url = value;
+            }
+            get
+            {
+                return this.url;
+            }
+        }
+
+        public HttpVerb Method
+        {
+            set
+            {
+                this.method = value;
+            }
+
+            get
+            {
+                return this.method;
+            }
+        }
+
+        public HeaderProvider Headers
+        {
+            set
+            {
+                this.headers = value;
+            }
+            get
+            {
+                return this.headers;
+            }
+        }
+
+        public AuthenticationProvider Auth
+        {
+            set
+            {
+                this.auth = value;
+            }
+            get
+            {
+                return this.auth;
+            }
+        }
+
+        public ActionProvider Action
+        {
+            set
+            {
+                this.action = value;
+            }
+            get
+            {
+                return this.action;
+            }
+        }
+
         public void Go()
         {
             MakeRequest();
         }
 
-        public HttpVerb GetMethod()
-        {
-            return method;
-        }
 
         protected virtual HttpWebRequest GetWebRequest(string url)
         {

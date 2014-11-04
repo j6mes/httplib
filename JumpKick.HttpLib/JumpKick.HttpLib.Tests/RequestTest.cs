@@ -191,7 +191,7 @@ namespace JumpKick.HttpLib.Tests
         public void TestDefaultMethodIsGet()
         {
             Request r = new Request();
-            Assert.AreEqual(HttpVerb.Get,r.GetMethod());
+            Assert.AreEqual(HttpVerb.Get,r.Method);
         }
 
         [TestMethod]
