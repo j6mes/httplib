@@ -150,13 +150,13 @@
         {
             return new AsyncCallback((callbackResult) =>
             {
-                HttpWebRequest myRequest = (HttpWebRequest)callbackResult.AsyncState;
+                HttpWebRequest webRequest = (HttpWebRequest)callbackResult.AsyncState;
 
                 try
                 {
-                    using (HttpWebResponse myResponse = (HttpWebResponse)myRequest.EndGetResponse(callbackResult))
+                    using (HttpWebResponse response = (HttpWebResponse)webRequest.EndGetResponse(callbackResult))
                     {
-                        success(myResponse.Headers, myResponse.GetResponseStream());
+                        success(response.Headers, response.GetResponseStream());
                     }
 
                 }
