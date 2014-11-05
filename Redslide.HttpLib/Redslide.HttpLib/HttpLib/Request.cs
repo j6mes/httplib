@@ -284,9 +284,46 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Post(string url, object headers, object parameters, Action<string> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headers, parameters,StreamToStringCallback(successCallback), failCallback);
+            Dictionary<String, String> headerdict = new Dictionary<String, String>();
+            if (headers != null)
+            {
+
+                PropertyInfo[] properties;
+#if NETFX_CORE
+                    properties = headers.GetType().GetTypeInfo().DeclaredProperties.ToArray();
+#else
+                properties = headers.GetType().GetProperties();
+#endif
+
+
+
+                foreach (var property in properties)
+                {
+
+#if NETFX_CORE
+
+#else
+
+                    headerdict.Add(property.Name, property.GetValue(headers, null) as string);
+#endif
+                }
+
+            }
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headerdict, parameters,StreamToStringCallback(successCallback), failCallback);
         }
 
+        public static void Post(string url, Dictionary<String,String> headers, object parameters, Action<string> successCallback, Action<WebException> failCallback)
+        {
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headers, parameters, StreamToStringCallback(successCallback), failCallback);
+        }
+
+        public static void PostJson(string url, Dictionary<String, String> headers, object parameters, Action<string> successCallback, Action<WebException> failCallback)
+        {
+            String jsonbody;
+            MakeRequest("application/json", HttpVerb.Post, url, headers, parameters, StreamToStringCallback(successCallback), failCallback);
+
+
+        }
         /// <summary>
         /// Performs a HTTP post request with parameters and a fail function
         /// </summary>
@@ -308,7 +345,35 @@ namespace Redslide.HttpLib
         /// <param name="failCallback">Function that is called on failure</param>
         public static void Post(string url, object headers,object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
-            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headers, parameters, successCallback, failCallback);
+            
+            Dictionary<String, String> headerdict = new Dictionary<String, String>();
+            if (headers != null)
+            {
+
+                PropertyInfo[] properties;
+#if NETFX_CORE
+                    properties = headers.GetType().GetTypeInfo().DeclaredProperties.ToArray();
+#else
+                properties = headers.GetType().GetProperties();
+#endif
+
+
+
+                foreach (var property in properties)
+                {
+
+#if NETFX_CORE
+
+#else
+
+                    headerdict.Add(property.Name, property.GetValue(headers, null) as string);
+#endif
+                }
+
+            }
+
+
+            MakeRequest("application/x-www-form-urlencoded", HttpVerb.Post, url, headerdict, parameters, successCallback, failCallback);
         }
         #endregion
 
@@ -702,7 +767,7 @@ namespace Redslide.HttpLib
         }
 
 
-        private static void MakeRequest(string contentType, HttpVerb method, string url, object headers, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
+        private static void MakeRequest(string contentType, HttpVerb method, string url, Dictionary<String,String> headers, object parameters, Action<WebHeaderCollection, Stream> successCallback, Action<WebException> failCallback)
         {
             if (parameters == null)
             {
@@ -727,25 +792,11 @@ namespace Redslide.HttpLib
 
                 if (headers != null)
                 {
-                   
-                    PropertyInfo[] properties;
-                    #if NETFX_CORE
-                    properties = headers.GetType().GetTypeInfo().DeclaredProperties.ToArray();
-                    #else
-                    properties =  headers.GetType().GetProperties();
-                    #endif
-
-                
-
-                    foreach (var property in properties)
+                    foreach(KeyValuePair<String,String> header in headers)
                     {
-                       
-#if NETFX_CORE
-
-#else
-                        request.Headers.Add(property.Name, property.GetValue(headers, null).ToString());  
-#endif
+                        request.Headers.Add(header.Key, header.Value);
                     }
+                    
 
                 }
                 
