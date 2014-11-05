@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JumpKick.HttpLib.Provider;
 using System.IO;
+using System.Collections.Generic;
 
 namespace JumpKick.HttpLib.Tests.Provider
 {
@@ -46,9 +47,22 @@ namespace JumpKick.HttpLib.Tests.Provider
         }
 
         [TestMethod]
-        public void TestBodyIsEmptyWithSingleItemQueryString()
+        public void TestBodyIsContainsSingleItemQueryString()
         {
             provider.AddParameters(new { a = "b" });
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+
+            Assert.AreEqual("a=b", content);
+        }
+
+        [TestMethod]
+        public void TestBodyIsContainsSingleItemQueryStringDictionary()
+        {
+            Dictionary<String, String> p = new Dictionary<string, string>();
+            p.Add("a", "b");
+
+            provider.AddParameters(p);
             StreamReader r = new StreamReader(provider.GetBody());
             String content = r.ReadToEnd();
 
@@ -61,5 +75,6 @@ namespace JumpKick.HttpLib.Tests.Provider
         {
             provider.AddParameters(null);
         }
+
     }
 }
