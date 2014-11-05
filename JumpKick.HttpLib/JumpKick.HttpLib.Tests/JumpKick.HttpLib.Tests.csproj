@@ -58,6 +58,7 @@
     <Compile Include="HttpTest.cs" />
     <Compile Include="NamedFileStreamTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\DictionaryHeaderProviderTest.cs" />
     <Compile Include="Provider\MultiHeaderProviderTest.cs" />
     <Compile Include="Provider\SettableActionProviderTest.cs" />
     <Compile Include="Provider\StreamBodyProviderTest.cs" />

@@ -70,6 +70,19 @@ namespace JumpKick.HttpLib.Tests.Provider
         }
 
         [TestMethod]
+        public void TestBodyIsContainsSingleItemQueryTwoItemDictionary()
+        {
+            Dictionary<String, String> p = new Dictionary<string, string>();
+            p.Add("a", "b");
+            p.Add("c", "d");
+            provider.AddParameters(p);
+            StreamReader r = new StreamReader(provider.GetBody());
+            String content = r.ReadToEnd();
+
+            Assert.AreEqual("a=b&c=d", content);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestNullParameterThrowsException()
         {
