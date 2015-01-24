@@ -39,7 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\RequestBuilder.Action.cs" />
+    <Compile Include="Builder\RequestBuilder.Body.cs" />
     <Compile Include="Builder\RequestBuilder.cs" />
+    <Compile Include="Builder\RequestBuilder.Header.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="NamedFileStream.cs" />
     <Compile Include="Provider\ActionProvider.cs" />
@@ -62,7 +65,9 @@
     <Compile Include="HttpVerb.cs" />
     <Compile Include="RequestTemplate.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Builder\RequestBuilder.Auth.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
