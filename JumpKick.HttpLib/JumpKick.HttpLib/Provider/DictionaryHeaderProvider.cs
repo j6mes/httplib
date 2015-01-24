@@ -13,33 +13,41 @@ namespace JumpKick.HttpLib.Provider
 
         public DictionaryHeaderProvider(IDictionary<String, String> data)
         {
-            headerData = data;
+            if (data == null)
+            {
+                headerData = new Dictionary<String, String>();
+                throw new ArgumentNullException("Paramters cannot be a null object");
+            }
+            else
+            {
+                headerData = data;
+            }            
         }
 
         public DictionaryHeaderProvider(object parameters)
         {
+
             headerData = new Dictionary<String, String>();
-        
-            try
+
+            if (parameters == null)
             {
-                PropertyInfo[] properties;
+                throw new ArgumentNullException("Paramters cannot be a null object");
+            }
+           
+        
+            
+            PropertyInfo[] properties;
 #if NETFX_CORE
-                properties = parameters.GetType().GetTypeInfo().DeclaredProperties.ToArray();
+            properties = parameters.GetType().GetTypeInfo().DeclaredProperties.ToArray();
 #else
-                properties = parameters.GetType().GetProperties();
+            properties = parameters.GetType().GetProperties();
 #endif
 
-                foreach (var property in properties)
-                {
-                    headerData.Add(property.Name, System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
-
-                  
-                }
-            }
-            catch (NullReferenceException e)
+            foreach (var property in properties)
             {
-                throw new ArgumentNullException("Paramters cannot be a null object", e);
+                headerData.Add(property.Name, System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
             }
+            
 
         }
 

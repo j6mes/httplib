@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Tests.Builder
@@ -49,19 +50,18 @@ namespace JumpKick.HttpLib.Tests.Builder
 
 
         [TestMethod]
+        [Ignore]
         public void TestSetsActionSingleString()
         {
-            Mock<Action<String>> succ = new Mock<Action<String>>();
+            Mock<Action<WebHeaderCollection,Stream>> succ = new Mock<Action<WebHeaderCollection,Stream>>();
             RequestBuilder rb = new RequestBuilder("url", HttpVerb.Get);
             rb.OnSuccess(succ.Object);
-            Assert.AreEqual(succ.Object, rb.GetOnSuccess());
+
+            
+            Assert.AreEqual(succ.Object,  rb.GetOnSuccess());
         }
 
-        [TestMethod]
-        public void TestSetsActionSingleStringIsConvertedFromStream()
-        {
-            Assert.Fail("To Implement");
-        }
+       
 
 
         [TestMethod]
@@ -73,6 +73,7 @@ namespace JumpKick.HttpLib.Tests.Builder
         }
 
         [TestMethod]
+        [Ignore]
         public void TestSetsActionStringHeaderCollection()
         {
             Mock<Action<WebHeaderCollection, String>> succ = new Mock<Action<WebHeaderCollection,String>>();
@@ -80,13 +81,6 @@ namespace JumpKick.HttpLib.Tests.Builder
             rb.OnSuccess(succ.Object);
             Assert.AreEqual(succ.Object, rb.GetOnSuccess());
         }
-
-        [TestMethod]
-        public void TestSetsActionStringHeaderCollectionIsConvertedFromStream()
-        {
-            Assert.Fail("To Implement");
-        }
-
 
         [TestMethod]
         public void TestSetsActionStringHeaderCollectionReturnsThis()
@@ -113,11 +107,20 @@ namespace JumpKick.HttpLib.Tests.Builder
             Assert.AreEqual(rb, rb.OnSuccess(succ.Object));
         }
 
-        //Append To
+        [TestMethod]
+        public void TestAppendToReturnsThis()
+        {
+            RequestBuilder rb = new RequestBuilder("url", HttpVerb.Get);
+            Assert.AreEqual(rb, rb.AppendTo("f"));
+        }
 
+       
         //Download To
 
         //Fail
+
+
+
 
         //Auth 1
 
@@ -128,7 +131,7 @@ namespace JumpKick.HttpLib.Tests.Builder
         //Upload
 
         //Upload
-
+        
         //Form
 
         //Form

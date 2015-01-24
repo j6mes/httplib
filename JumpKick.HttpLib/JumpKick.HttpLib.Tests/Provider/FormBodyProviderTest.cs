@@ -89,5 +89,12 @@ namespace JumpKick.HttpLib.Tests.Provider
             provider.AddParameters(null);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestSerializingNullStringFails()
+        {
+            FormBodyProvider.SerializeQueryString(null);
+        }
+
     }
 }

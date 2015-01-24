@@ -187,13 +187,21 @@ namespace JumpKick.HttpLib.Builder
 
         public RequestBuilder DownloadTo(String filePath)
         {
+#if NETFX_CORE
+            test
+#else
+
+            
             this.success = (headers, result) =>
                 {
+                    
+
                     FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
                     result.CopyTo(fs);
                     fs.Close();
                 };
             return this;
+#endif
         }
 
 

@@ -86,5 +86,13 @@ namespace JumpKick.HttpLib.Tests.Provider
             DictionaryHeaderProvider provider = new DictionaryHeaderProvider(new { a = "b", c = "d" });
             Assert.AreEqual("d", provider.GetHeaders()[1].Value);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestCatchesNullObject()
+        {
+            DictionaryHeaderProvider provider = new DictionaryHeaderProvider(null);
+            provider.GetHeaders();
+        }
     }
 }
