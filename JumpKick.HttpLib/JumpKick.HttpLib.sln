@@ -5,11 +5,9 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpKick.HttpLib", "JumpKick.HttpLib\JumpKick.HttpLib.csproj", "{D626C4EC-D793-4541-8631-1AF678A29490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpKick.HttpLib.Silverlight", "JumpKick.HttpLib.Silverlight\JumpKick.HttpLib.Silverlight.csproj", "{C3449629-4640-4D50-9ADA-B1668757CDDC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpKick.HttpLib.Store", "JumpKick.HttpLib.Store\JumpKick.HttpLib.Store.csproj", "{9C0624D5-E430-4D47-A5B5-FBB509D0C597}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpKick.HttpLib.Tests", "JumpKick.HttpLib.Tests\JumpKick.HttpLib.Tests.csproj", "{361F6F3F-7FC8-4415-A615-9DA5221F4862}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpKick.HttpLib.Samples", "JumpKick.HttpLib.Samples\JumpKick.HttpLib.Samples.csproj", "{E02B897F-ADF4-439B-82A4-945DF99B1991}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +19,14 @@ Global
 		{D626C4EC-D793-4541-8631-1AF678A29490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D626C4EC-D793-4541-8631-1AF678A29490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D626C4EC-D793-4541-8631-1AF678A29490}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3449629-4640-4D50-9ADA-B1668757CDDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3449629-4640-4D50-9ADA-B1668757CDDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3449629-4640-4D50-9ADA-B1668757CDDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3449629-4640-4D50-9ADA-B1668757CDDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C0624D5-E430-4D47-A5B5-FBB509D0C597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C0624D5-E430-4D47-A5B5-FBB509D0C597}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C0624D5-E430-4D47-A5B5-FBB509D0C597}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C0624D5-E430-4D47-A5B5-FBB509D0C597}.Release|Any CPU.Build.0 = Release|Any CPU
 		{361F6F3F-7FC8-4415-A615-9DA5221F4862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{361F6F3F-7FC8-4415-A615-9DA5221F4862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{361F6F3F-7FC8-4415-A615-9DA5221F4862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{361F6F3F-7FC8-4415-A615-9DA5221F4862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E02B897F-ADF4-439B-82A4-945DF99B1991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E02B897F-ADF4-439B-82A4-945DF99B1991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E02B897F-ADF4-439B-82A4-945DF99B1991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E02B897F-ADF4-439B-82A4-945DF99B1991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

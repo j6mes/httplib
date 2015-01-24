@@ -93,6 +93,21 @@ namespace JumpKick.HttpLib.Tests
             }
         }
 
+        public class RequestWrapper2 : Request
+        {
+            public void ExWithBody(HttpWebRequest req) 
+            {
+                this.ExecuteRequestWithBody(req);
+            }
+
+            public void ExWithoutBody(HttpWebRequest req)
+            {
+                this.ExecuteRequestWithoutBody(req);
+            }
+        }
+
+
+        
 
         [TestMethod]
         public void TestProcessCallbackFailsOnWebException() 
@@ -113,6 +128,8 @@ namespace JumpKick.HttpLib.Tests
             requestMutex.WaitOne();
             cb.Invoke(result);
         }
+
+
 
 
         [TestMethod]
@@ -186,6 +203,16 @@ namespace JumpKick.HttpLib.Tests
             req.MakeRequest(HttpVerb.Get, null, null, null, null);
 
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestMakeRequestThrowsExceptionWithBodyWhenUrlNull()
+        {
+            RequestWrapper req = new RequestWrapper();
+            req.MakeRequest(HttpVerb.Post, null, null, null, null);
+
+        }
+
 
         [TestMethod]
         public void TestDefaultMethodIsGet()
@@ -339,6 +366,23 @@ namespace JumpKick.HttpLib.Tests
             Assert.AreEqual(prov.Object, req.Auth);
         }
 
+
+
+        [TestMethod]
+        public void TestWithBody()
+        {
+            Mock<HttpWebRequest> req = new Mock<HttpWebRequest>();
+            RequestWrapper2 rw = new RequestWrapper2();
+            rw.ExWithBody(req.Object);
+        }
+
+        [TestMethod]
+        public void TestWithoutBody()
+        {
+            Mock<HttpWebRequest> req = new Mock<HttpWebRequest>();
+            RequestWrapper2 rw = new RequestWrapper2();
+            rw.ExWithBody(req.Object);
+        }
 
 
 
