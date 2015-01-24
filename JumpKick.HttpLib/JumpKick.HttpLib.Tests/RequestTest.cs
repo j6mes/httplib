@@ -212,7 +212,136 @@ namespace JumpKick.HttpLib.Tests
 
         }
 
-        //Test URL assignment
+        [TestMethod]
+        public void TestGetUrl()
+        {
+            Request req = new Request
+            {
+                Url = "a"
+            };
+
+            Assert.AreEqual("a", req.Url);
+
+        }
+
+        [TestMethod]
+        public void TestGetMethod()
+        {
+            Request req = new Request
+            {
+                Method = HttpVerb.Get
+            };
+
+            Assert.AreEqual(HttpVerb.Get, req.Method);
+        }
+
+
+        [TestMethod]
+        public void TestGetAction()
+        {
+            Mock<ActionProvider> prov = new Mock<ActionProvider>();
+   
+            Request req = new Request
+            {
+                Action = prov.Object
+            };
+
+            Assert.AreEqual(prov.Object, req.Action);
+        }
+
+
+        [TestMethod]
+        public void TestGetHeader()
+        {
+            Mock<HeaderProvider> prov = new Mock<HeaderProvider>();
+
+            Request req = new Request
+            {
+                Headers = prov.Object
+            };
+
+            Assert.AreEqual(prov.Object, req.Headers);
+        }
+
+
+
+
+        [TestMethod]
+        public void TestGetAuth()
+        {
+            Mock<AuthenticationProvider> prov = new Mock<AuthenticationProvider>();
+
+            Request req = new Request
+            {
+                Auth = prov.Object
+            };
+
+            Assert.AreEqual(prov.Object, req.Auth);
+        }
+
+
+
+
+        [TestMethod]
+        public void TestSetUrl()
+        {
+            Request req = new Request();
+            req.Url = "a";
+
+            Assert.AreEqual("a", req.Url);
+
+        }
+
+        [TestMethod]
+        public void TestSetMethod()
+        {
+            Request req = new Request();
+            req.Method = HttpVerb.Delete;
+            Assert.AreEqual(HttpVerb.Delete, req.Method);
+        }
+
+
+        [TestMethod]
+        public void TestSetAction()
+        {
+            Mock<ActionProvider> prov = new Mock<ActionProvider>();
+
+            Request req = new Request();
+            req.Action = prov.Object;
+
+            Assert.AreEqual(prov.Object, req.Action);
+        }
+
+
+        [TestMethod]
+        public void TestSetHeader()
+        {
+            Mock<HeaderProvider> prov = new Mock<HeaderProvider>();
+
+            Request req = new Request();
+            req.Headers = prov.Object;
+
+            Assert.AreEqual(prov.Object, req.Headers);
+        }
+
+
+
+
+        [TestMethod]
+        public void TestSetAuth()
+        {
+            Mock<AuthenticationProvider> prov = new Mock<AuthenticationProvider>();
+
+            Request req = new Request();
+            req.Auth = prov.Object;
+
+
+            Assert.AreEqual(prov.Object, req.Auth);
+        }
+
+
+
+
         //Test cookies
         //Test method
         //Test GET/HEAD/OPTIONS method
