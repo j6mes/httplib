@@ -91,8 +91,16 @@ namespace JumpKick.HttpLib.Tests.Provider
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestCatchesNullObject()
         {
-            DictionaryHeaderProvider provider = new DictionaryHeaderProvider(null);
-            provider.GetHeaders();
+            DictionaryHeaderProvider provider = new DictionaryHeaderProvider((IDictionary<string, string>)null);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestCatchesNullObject2()
+        {
+            DictionaryHeaderProvider provider = new DictionaryHeaderProvider((object)null);
+        }
+
+
     }
 }

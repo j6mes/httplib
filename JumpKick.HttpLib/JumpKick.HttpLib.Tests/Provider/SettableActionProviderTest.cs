@@ -39,6 +39,36 @@ namespace JumpKick.HttpLib.Tests.Provider
             SettableActionProvider sap = new SettableActionProvider(success.Object, fail.Object);
             Assert.AreEqual(fail.Object, sap.Fail);
         }
-        
+
+
+        [TestMethod]
+        public void TestGetFailWithNullSuccess()
+        {
+            SettableActionProvider sap = new SettableActionProvider(null, fail.Object);
+            Assert.AreEqual(fail.Object, sap.Fail);
+        }
+
+        [TestMethod]
+        public void TestGetSuccessWithNullFail()
+        {
+            SettableActionProvider sap = new SettableActionProvider(success.Object, null);
+            Assert.AreEqual(success.Object, sap.Success);
+        }
+
+
+        [TestMethod]
+        public void TestDefaultFailNoErr()
+        {
+            SettableActionProvider sap = new SettableActionProvider(null, fail.Object);
+            sap.Fail(null);
+        }
+
+        [TestMethod]
+        public void TestDefaultSuccesNoErr()
+        {
+            SettableActionProvider sap = new SettableActionProvider(success.Object, null);
+            sap.Success(null,null);
+        }
+
     }
 }
