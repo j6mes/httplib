@@ -65,6 +65,27 @@ namespace JumpKick.HttpLib.Builder
         }
 
 
+        public RequestBuilder DownloadTo(String filePath,Action<WebHeaderCollection> onSuccess)
+        {
+#if NETFX_CORE
+            test
+#else
+
+
+            this.success = (headers, result) =>
+            {
+
+
+                FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
+                result.CopyTo(fs);
+                fs.Close();
+
+                onSuccess(headers);
+            };
+            return this;
+#endif
+        }
+
         public RequestBuilder AppendTo(String filePath)
         {
             this.success = (headers, result) =>
