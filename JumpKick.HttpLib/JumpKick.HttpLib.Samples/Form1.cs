@@ -30,7 +30,7 @@ namespace JumpKick.HttpLib.Samples
 
         private void btnView_Click(object sender, EventArgs e)
         {
-            Http.Get("http://google.com").OnSuccess((string a) =>
+            Http.Get(textBox1.Text).OnSuccess((string a) =>
             {
                 UpdateText(a);
             }).Go();
@@ -42,7 +42,10 @@ namespace JumpKick.HttpLib.Samples
 
             if(dlg.ShowDialog()==DialogResult.OK)
             {
-                Http.Get("http://google.com").DownloadTo(dlg.FileName).Go();
+                Http.Get(textBox1.Text).DownloadTo(dlg.FileName, onSuccess: (headers) =>
+                {
+                    UpdateText("Download Complete");
+                }).Go();
             }
            
         }
