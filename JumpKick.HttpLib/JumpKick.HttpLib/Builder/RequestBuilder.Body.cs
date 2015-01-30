@@ -37,6 +37,12 @@ namespace JumpKick.HttpLib.Builder
             return this.Upload(files, new { });
         }
 
+        public RequestBuilder Upload(NamedFileStream[] files, Action<long, long?> onProgressChanged)
+        {
+            return this.Upload(files, new { }, onProgressChanged, a => { });
+        }
+
+
         public RequestBuilder Form(object body)
         {
             FormBodyProvider bodyProvider = new FormBodyProvider();
