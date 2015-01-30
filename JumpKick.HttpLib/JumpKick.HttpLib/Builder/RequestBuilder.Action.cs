@@ -55,9 +55,10 @@ namespace JumpKick.HttpLib.Builder
             this.success = (headers, result) =>
             {
 
-
+                long? length = null;
+                if (headers.AllKeys.Contains("Content-Length")) { length = long.Parse(headers["Content-Length"]); }
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
-                ProgressCallbackHelper operation = result.CopyToProgress(fs,null);
+                ProgressCallbackHelper operation = result.CopyToProgress(fs,length);
                 operation.Completed += (totalbytes)=>{fs.Close();};
                 
             };
@@ -77,9 +78,10 @@ namespace JumpKick.HttpLib.Builder
             this.success = (headers, result) =>
             {
 
-
+                long? length = null;
+                if (headers.AllKeys.Contains("Content-Length")) { length = long.Parse(headers["Content-Length"]); }
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
-                ProgressCallbackHelper operation = result.CopyToProgress(fs, null);
+                ProgressCallbackHelper operation = result.CopyToProgress(fs, length);
 
                 operation.ProgressChanged += (copied, total) => { OnProgressChanged(copied, total); };
                 operation.Completed += (totalbytes) => { fs.Close(); };
@@ -101,11 +103,12 @@ namespace JumpKick.HttpLib.Builder
 
             this.success = (headers, result) =>
             {
-
+                long? length = null;
+                if (headers.AllKeys.Contains("Content-Length")) { length = long.Parse(headers["Content-Length"]); }
 
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
 
-                ProgressCallbackHelper operation = result.CopyToProgress(fs, null);
+                ProgressCallbackHelper operation = result.CopyToProgress(fs, length);
 
                 operation.Completed += (totalbytes) => { fs.Close(); onSuccess(headers); };
 
@@ -124,10 +127,11 @@ namespace JumpKick.HttpLib.Builder
 
             this.success = (headers, result) =>
             {
-
-
+                long? length = null;
+                if(headers.AllKeys.Contains("Content-Length")) {length = long.Parse( headers["Content-Length"]);}
+                
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
-                ProgressCallbackHelper operation = result.CopyToProgress(fs, null);
+                ProgressCallbackHelper operation = result.CopyToProgress(fs, length);
 
                 operation.ProgressChanged += (copied, total) => { onProgressChanged(copied, total); };
                  operation.Completed += (totalbytes) => { fs.Close(); onSuccess(headers); };

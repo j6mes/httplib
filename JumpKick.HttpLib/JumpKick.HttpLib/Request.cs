@@ -173,6 +173,7 @@
                 {
                     using (HttpWebResponse response = (HttpWebResponse)webRequest.EndGetResponse(callbackResult))
                     {
+                       // if (response.ContentLength > 0) { response.Headers.Add("Content-Length", response.ContentLength.ToString()); }
                         success(response.Headers, response.GetResponseStream());
                     }
 
