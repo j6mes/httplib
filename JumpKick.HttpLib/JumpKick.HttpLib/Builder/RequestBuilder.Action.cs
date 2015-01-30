@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using JumpKick.HttpLib.Streams;
 namespace JumpKick.HttpLib.Builder
 {
     public partial class RequestBuilder
@@ -57,15 +57,17 @@ namespace JumpKick.HttpLib.Builder
 
 
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
-                result.CopyTo(fs);
-                fs.Close();
+                ProgressCallbackHelper operation = result.CopyToProgress(fs,null);
+                operation.Completed += (totalbytes)=>{fs.Close();};
+                
             };
             return this;
 #endif
         }
 
 
-        public RequestBuilder DownloadTo(String filePath,Action<WebHeaderCollection> onSuccess)
+
+        public RequestBuilder DownloadTo(String filePath, Action<long,long?> OnProgressChanged)
         {
 #if NETFX_CORE
             test
@@ -77,14 +79,64 @@ namespace JumpKick.HttpLib.Builder
 
 
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
-                result.CopyTo(fs);
-                fs.Close();
+                ProgressCallbackHelper operation = result.CopyToProgress(fs, null);
 
-                onSuccess(headers);
+                operation.ProgressChanged += (copied, total) => { OnProgressChanged(copied, total); };
+                operation.Completed += (totalbytes) => { fs.Close(); };
+
             };
             return this;
 #endif
         }
+
+
+
+
+        public RequestBuilder DownloadTo(String filePath, Action<WebHeaderCollection> onSuccess)
+        {
+#if NETFX_CORE
+            test
+#else
+
+
+            this.success = (headers, result) =>
+            {
+
+
+                FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
+
+                ProgressCallbackHelper operation = result.CopyToProgress(fs, null);
+
+                operation.Completed += (totalbytes) => { fs.Close(); onSuccess(headers); };
+
+               
+            };
+            return this;
+#endif
+        }
+
+        public RequestBuilder DownloadTo(String filePath, Action<long, long?> onProgressChanged,Action<WebHeaderCollection> onSuccess)
+        {
+#if NETFX_CORE
+            test
+#else
+
+
+            this.success = (headers, result) =>
+            {
+
+
+                FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
+                ProgressCallbackHelper operation = result.CopyToProgress(fs, null);
+
+                operation.ProgressChanged += (copied, total) => { onProgressChanged(copied, total); };
+                 operation.Completed += (totalbytes) => { fs.Close(); onSuccess(headers); };
+                 operation.Go();
+            };
+            return this;
+#endif
+        }
+
 
         public RequestBuilder AppendTo(String filePath)
         {

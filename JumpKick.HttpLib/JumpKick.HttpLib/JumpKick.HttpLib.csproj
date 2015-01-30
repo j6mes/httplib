@@ -64,6 +64,9 @@
     <Compile Include="Http.cs" />
     <Compile Include="HttpVerb.cs" />
     <Compile Include="RequestTemplate.cs" />
+    <Compile Include="Streams\ProgressCallbackHelper.cs" />
+    <Compile Include="Streams\ProgressChangedEventArgs.cs" />
+    <Compile Include="Streams\ProgressMonitorStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder\RequestBuilder.Auth.cs" />

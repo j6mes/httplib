@@ -42,7 +42,11 @@ namespace JumpKick.HttpLib.Samples
 
             if(dlg.ShowDialog()==DialogResult.OK)
             {
-                Http.Get(textBox1.Text).DownloadTo(dlg.FileName, onSuccess: (headers) =>
+                Http.Get(textBox1.Text).DownloadTo(dlg.FileName, onProgressChanged: (bytesCopied,totalBytes) => 
+                    {
+                        UpdateText(bytesCopied.ToString());
+                    },
+                    onSuccess: (headers) =>
                 {
                     UpdateText("Download Complete");
                 }).Go();
