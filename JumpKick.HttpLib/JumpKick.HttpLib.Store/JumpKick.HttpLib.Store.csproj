@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C0624D5-E430-4D47-A5B5-FBB509D0C597}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JumpKick.HttpLib.Store</RootNamespace>
+    <AssemblyName>JumpKick.HttpLib.Store</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile344</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\JumpKick.HttpLib\Builder\RequestBuilder.cs">
+      <Link>Builder\RequestBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Header.cs">
+      <Link>Header.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Http.cs">
+      <Link>Http.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\HttpVerb.cs">
+      <Link>HttpVerb.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\NamedFileStream.cs">
+      <Link>NamedFileStream.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\ActionProvider.cs">
+      <Link>Provider\ActionProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\AuthenticationProvider.cs">
+      <Link>Provider\AuthenticationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\BasicAuthenticationProvider.cs">
+      <Link>Provider\BasicAuthenticationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\BodyProvider.cs">
+      <Link>Provider\BodyProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\DictionaryHeaderProvider.cs">
+      <Link>Provider\DictionaryHeaderProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\FormBodyProvider.cs">
+      <Link>Provider\FormBodyProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\HeaderProvider.cs">
+      <Link>Provider\HeaderProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\MultiHeaderProvider.cs">
+      <Link>Provider\MultiHeaderProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\MultipartBodyProvider.cs">
+      <Link>Provider\MultipartBodyProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\NonActionProvider.cs">
+      <Link>Provider\NonActionProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\SettableActionProvider.cs">
+      <Link>Provider\SettableActionProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\StreamBodyProvider.cs">
+      <Link>Provider\StreamBodyProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\TextAuthenticationProvider.cs">
+      <Link>Provider\TextAuthenticationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Provider\TextBodyProvider.cs">
+      <Link>Provider\TextBodyProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Request.cs">
+      <Link>Request.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\RequestTemplate.cs">
+      <Link>RequestTemplate.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
