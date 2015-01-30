@@ -59,6 +59,8 @@ namespace JumpKick.HttpLib.Streams
 
 
             }
+
+            this.OnCompleted(length);
         }
     }
 }

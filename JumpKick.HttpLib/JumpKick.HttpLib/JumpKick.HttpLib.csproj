@@ -47,6 +47,7 @@
     <Compile Include="NamedFileStream.cs" />
     <Compile Include="Provider\ActionProvider.cs" />
     <Compile Include="Provider\AuthenticationProvider.cs" />
+    <Compile Include="Provider\DefaultBodyProvider.cs" />
     <Compile Include="Provider\NonActionProvider.cs" />
     <Compile Include="Provider\SettableActionProvider.cs" />
     <Compile Include="Provider\TextBodyProvider.cs" />

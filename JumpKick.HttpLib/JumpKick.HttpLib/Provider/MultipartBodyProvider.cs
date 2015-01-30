@@ -5,7 +5,7 @@ namespace JumpKick.HttpLib.Provider
     using System.Collections.Generic;
     using System.IO;
 
-    public class MultipartBodyProvider : BodyProvider
+    public class MultipartBodyProvider : DefaultBodyProvider
     {
         private string boundary;
         
@@ -14,6 +14,8 @@ namespace JumpKick.HttpLib.Provider
         private StreamWriter writer;
         private IList<NamedFileStream> files;
         private object parameters;
+        public Action<long, long?> OnProgressChangeCallback = (a, b) => { };
+        public Action<long> OnCompletedCallback = (a) => { };
 
 
         public MultipartBodyProvider()
@@ -29,7 +31,7 @@ namespace JumpKick.HttpLib.Provider
             files.Add(file);
         }
 
-        public string GetContentType()
+        public override string GetContentType()
         {
             return string.Format("multipart/form-data, boundary={0}", boundary);
         }
@@ -45,7 +47,7 @@ namespace JumpKick.HttpLib.Provider
         }
 
 
-        public Stream GetBody()
+        public override Stream GetBody()
         {
             writer.Write("\n");
 
@@ -80,14 +82,17 @@ namespace JumpKick.HttpLib.Provider
                  * Additional info that is prepended to the file
                  */
                 string separator = string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"; filename=\"{2}\"\nContent-Type: {3}\n\n",boundary,file.Name,file.Filename,file.ContentType);
+                writer.Write(separator);
+                writer.Flush();
+
+
 
                 /*
                  * Read the file into the output buffer
                  */
+                
                 StreamReader sr = new StreamReader(file.Stream);
-                writer.Write(separator);
-                writer.Flush();
-
+           
                 int bytesRead = 0;
                 byte[] buffer = new byte[4096];
 
@@ -127,6 +132,17 @@ namespace JumpKick.HttpLib.Provider
             }
 
             return new string(chars);
+        }
+
+
+        public override void OnProgressChange(long bytesSent, long? totalBytes)
+        {
+            OnProgressChangeCallback(bytesSent, totalBytes);
+        }
+
+        public override void OnCompleted(long totalBytes)
+        {
+            OnCompletedCallback(totalBytes);
         }
     }
 }

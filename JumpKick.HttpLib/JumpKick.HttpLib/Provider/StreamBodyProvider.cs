@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Provider
 {
-    public class StreamBodyProvider : BodyProvider
+    public class StreamBodyProvider : DefaultBodyProvider
     {
         private string contentType;
         private Stream body;
@@ -23,12 +23,12 @@ namespace JumpKick.HttpLib.Provider
             this.contentType = contentType;
         }
 
-        public string GetContentType()
+        public override string GetContentType()
         {
             return contentType;
         }
 
-        public Stream GetBody()
+        public override Stream GetBody()
         {
             return body;
         }

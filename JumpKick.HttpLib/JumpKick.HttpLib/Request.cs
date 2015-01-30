@@ -4,7 +4,7 @@
     using System;
     using System.IO;
     using System.Net;
-
+    using JumpKick.HttpLib.Streams;
 
     public class Request
     {
@@ -136,7 +136,12 @@
             request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
             {
                 HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
-                body.GetBody().CopyTo(tmprequest.EndGetRequestStream(callbackResult));
+                
+      
+                ProgressCallbackHelper copy = body.GetBody().CopyToProgress(tmprequest.EndGetRequestStream(callbackResult),null);
+                copy.ProgressChanged += (bytesSent, totalBytes) => { body.OnProgressChange(bytesSent, totalBytes); };
+                copy.Completed += (totalBytes) => { body.OnCompleted(totalBytes); };
+                copy.Go();
 
                 // Start the asynchronous operation to get the response
                 tmprequest.BeginGetResponse(ProcessCallback(action.Success, action.Fail), tmprequest);

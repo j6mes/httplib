@@ -13,10 +13,11 @@ namespace JumpKick.HttpLib.Builder
         #region Body
         private BodyProvider bodyProvider;
 
-        public RequestBuilder Upload(NamedFileStream[] files, object parameters)
+        public RequestBuilder Upload(NamedFileStream[] files, object parameters, Action<long,long?> onProgressChanged, Action<long> onUploadComplete)
         {
             MultipartBodyProvider bodyProvider = new MultipartBodyProvider();
-
+            bodyProvider.OnCompletedCallback = onUploadComplete;
+            bodyProvider.OnProgressChangeCallback = onProgressChanged;
             foreach (NamedFileStream file in files)
             {
                 bodyProvider.AddFile(file);
@@ -26,6 +27,10 @@ namespace JumpKick.HttpLib.Builder
             return this.Body(bodyProvider);
         }
 
+        public RequestBuilder Upload(NamedFileStream[] files, object parameters)
+        {
+            return this.Upload(files, parameters,(a,b)=> { }, a=>{ });
+        }
 
         public RequestBuilder Upload(NamedFileStream[] files)
         {

@@ -7,7 +7,7 @@ namespace JumpKick.HttpLib.Provider
     using System.Reflection;
     using System.Text;
 
-    public class TextBodyProvider : BodyProvider
+    public class TextBodyProvider : DefaultBodyProvider
     {
         private Stream contentstream;
         private StreamWriter writer;
@@ -31,12 +31,12 @@ namespace JumpKick.HttpLib.Provider
         }
 
 
-        public string GetContentType()
+        public override string GetContentType()
         {
             return this.contentType;
         }
 
-        public Stream GetBody()
+        public override Stream GetBody()
         {
             contentstream.Seek(0,SeekOrigin.Begin);
             return contentstream;
