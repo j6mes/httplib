@@ -83,6 +83,18 @@
             }
         }
 
+        public BodyProvider Body
+        {
+            set
+            {
+                this.body = value;
+            }
+            get
+            {
+                return this.body;
+            }
+        }
+
         public void Go()
         {
             MakeRequest();

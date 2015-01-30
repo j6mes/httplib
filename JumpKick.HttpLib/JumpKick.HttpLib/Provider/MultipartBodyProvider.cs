@@ -108,7 +108,7 @@ namespace JumpKick.HttpLib.Provider
                 writer.Write(closing, 0, closing.Length);
                 writer.Flush();
             }
-            writer.Close();
+      
 
             contentstream.Seek(0, SeekOrigin.Begin);
             return contentstream;

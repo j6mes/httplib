@@ -15,7 +15,7 @@ namespace JumpKick.HttpLib.Samples
         public Form1()
         {
             InitializeComponent();
-
+            new Form2().Show();
         }
 
         private void UpdateText(String text)

@@ -39,7 +39,8 @@ namespace JumpKick.HttpLib.Builder
                 Method = method,
                 Action = actionProvider,
                 Auth = authProvider,
-                Headers = headerProvider
+                Headers = headerProvider,
+                Body = bodyProvider
             };
 
             req.Go();
