@@ -48,7 +48,7 @@ namespace JumpKick.HttpLib.Builder
         public RequestBuilder DownloadTo(String filePath)
         {
 #if NETFX_CORE
-            test
+            return this;
 #else
 
 
@@ -71,7 +71,7 @@ namespace JumpKick.HttpLib.Builder
         public RequestBuilder DownloadTo(String filePath, Action<long,long?> OnProgressChanged)
         {
 #if NETFX_CORE
-            test
+            return this;
 #else
 
 
@@ -97,7 +97,7 @@ namespace JumpKick.HttpLib.Builder
         public RequestBuilder DownloadTo(String filePath, Action<WebHeaderCollection> onSuccess)
         {
 #if NETFX_CORE
-            test
+            return this;
 #else
 
 
@@ -121,7 +121,7 @@ namespace JumpKick.HttpLib.Builder
         public RequestBuilder DownloadTo(String filePath, Action<long, long?> onProgressChanged,Action<WebHeaderCollection> onSuccess)
         {
 #if NETFX_CORE
-            test
+            return this;
 #else
 
 
@@ -146,9 +146,12 @@ namespace JumpKick.HttpLib.Builder
         {
             this.success = (headers, result) =>
             {
+#if NETFX_CORE
+#else
                 FileStream fs = new FileStream(filePath, FileMode.Append);
                 result.CopyTo(fs);
                 fs.Close();
+#endif
             };
             return this;
         }

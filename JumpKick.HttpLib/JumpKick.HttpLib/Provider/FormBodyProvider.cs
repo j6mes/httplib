@@ -61,25 +61,36 @@ namespace JumpKick.HttpLib.Provider
         public static string SerializeQueryString(object parameters)
         {
             StringBuilder querystring = new StringBuilder();
-            int i = 0;
+       
             try
             {
-                PropertyInfo[] properties;
+                IEnumerable<PropertyInfo> properties;
                 #if NETFX_CORE
-                properties = parameters.GetType().GetTypeInfo().DeclaredProperties.ToArray();
+                properties = parameters.GetType().GetTypeInfo().DeclaredProperties;
                 #else
                 properties = parameters.GetType().GetProperties();
                 #endif
 
-                foreach (var property in properties)
+                using (IEnumerator<PropertyInfo> enumerator = properties.GetEnumerator())
                 {
-                    querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
-
-                    if (++i < properties.Length)
+                    if (enumerator.MoveNext())
                     {
-                        querystring.Append("&");
+                        var property = enumerator.Current;
+                        while (enumerator.MoveNext())
+                        {
+                            
+                            querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
+                            property = enumerator.Current;
+                            querystring.Append("&");
+                            
+                        }
+                        querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
+                            
                     }
+
+                    
                 }
+               
             }
             catch (NullReferenceException e)
             {

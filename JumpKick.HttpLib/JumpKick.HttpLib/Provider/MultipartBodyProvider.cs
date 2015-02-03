@@ -4,6 +4,7 @@ namespace JumpKick.HttpLib.Provider
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Reflection;
 
     public class MultipartBodyProvider : DefaultBodyProvider
     {
@@ -56,14 +57,21 @@ namespace JumpKick.HttpLib.Provider
              */
             if (parameters != null)
             {
+
+                IEnumerable<PropertyInfo> properties;
 #if NETFX_CORE
-                foreach (var property in parameters.GetType().GetTypeInfo().DeclaredProperties)
+                properties = parameters.GetType().GetTypeInfo().DeclaredProperties;
 #else
-                foreach (var property in parameters.GetType().GetProperties())
+                properties = parameters.GetType().GetProperties();
 #endif
+                using(var enumerator = properties.GetEnumerator())
                 {
-                    writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n", boundary, System.Uri.EscapeDataString(property.Name), System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
-                    writer.Flush();
+                    while (enumerator.MoveNext())
+                    {
+                        var property = enumerator.Current;
+                        writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n", boundary, System.Uri.EscapeDataString(property.Name), System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
+                        writer.Flush();
+                    }
                 }
             }
 
@@ -100,7 +108,12 @@ namespace JumpKick.HttpLib.Provider
                 {
                     contentstream.Write(buffer, 0, bytesRead);
                 }
+
+#if NETFX_CORE
+#else
                 file.Stream.Close();
+#endif
+
 
                 /*
                  * Write the delimiter to the output buffer
