@@ -110,6 +110,7 @@ namespace JumpKick.HttpLib.Provider
                 }
 
 #if NETFX_CORE
+                file.Stream.Dispose();
 #else
                 file.Stream.Close();
 #endif
