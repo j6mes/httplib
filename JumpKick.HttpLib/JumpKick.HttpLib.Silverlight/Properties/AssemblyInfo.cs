@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("JumpKick.HttpLib.Silverlight")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("HttpLib.SilverLight")]
+[assembly: AssemblyDescription("A simple web request library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("JumpKick.HttpLib.Silverlight")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("JumpKick")]
+[assembly: AssemblyProduct("HttpLib")]
+[assembly: AssemblyCopyright("Copyright JumpKick - James Thorne ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c3449629-4640-4d50-9ada-b1668757cddc")]
+[assembly: Guid("1c7164a9-4deb-4511-be22-9790b4e594a9")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,7 +29,9 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Revision and Build Numbers 
+// You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("2.0.11")]
+[assembly: AssemblyFileVersion("2.0.11")]
+
