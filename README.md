@@ -14,7 +14,7 @@ Source code is available on [GitHub](https://github.com/j6mes/httplib/ "Download
 
 #### Latest Release:
 
-The most recent release is **2.0.10** which supports the following features:
+The most recent release is **2.0.11** which supports the following features:
 
 *   Supports most HTTP Verbs: GET / POST / PUT / DELETE and more
 *   Upload and download files to disk
@@ -24,11 +24,9 @@ The most recent release is **2.0.10** which supports the following features:
 *   Content stream can be customised
 *   Cookies are static and persist between requests
 
-Supported platforms: .Net4.0+ (WinForms, WCF, ASP.Net etc).
+Supported platforms: .Net4.0+ (WinForms, WCF, ASP.Net, Silverlight 5, Windows Phone 8.0+, Windows 8.0+).
 
 #### Upcoming Releases:
-
-**2.0.11:** Currently 2.0.10 does not support Windows 8.1, Windows Phone or Silverlight target platforms, a limited release for these platforms will soon be available.
 
 **2.0.12: **OAuth2 authentication provider
 
@@ -38,7 +36,7 @@ Supported platforms: .Net4.0+ (WinForms, WCF, ASP.Net etc).
 
 Performs a HTTP GET on a given URL and executes the lambda function provided to the OnSuccess method. This example prints the content of the web page to the command line.
 
-	Http.Get("https://jthorne.co.uk/httplib").OnSuccess(result =&gt;
+	Http.Get("https://jthorne.co.uk/httplib").OnSuccess(result =>
 	{
 		Console.Write(result);
     }).Go();
@@ -46,10 +44,10 @@ Performs a HTTP GET on a given URL and executes the lambda function provided to 
 
 Errors can be caught through using the OnFail method as show below:
 
-    Http.Get("https://jthorne.co.uk/httplib").OnSuccess(result =&gt;
+    Http.Get("https://jthorne.co.uk/httplib").OnSuccess(result =>
     {
         Console.Write(result);
-	}).OnFail(webexception =&gt; 
+	}).OnFail(webexception =>
 	{
 	Console.Write(webexception.Message);
 	}).Go();
@@ -83,11 +81,11 @@ And of course, fitting with the true flexibility of HttpLib, a progress monitor 
 					new NamedFileStream("myfile", "photo.jpg", "application/octet-stream", File.OpenRead(@"C:\photo.jpg"))
 					}, 
 					onProgressChanged:
-					(bytesSent, totalBytes) =&gt; 
+					(bytesSent, totalBytes) => 
 					{
 						Console.WriteLine("Uploading: " + (bytesSent / totalBytes)*100 + "% completed");
 					})
-					.OnSuccess(result=&gt;
+					.OnSuccess(result=>
 					{
 						Console.WriteLine(result);
 					}).Go();
@@ -98,7 +96,7 @@ Files can be downloaded directly to disk using the DownloadTo extension. An OnSu
 
 If the server doesn&#8217;t reply with a content length header, the totalBytes value will be null meaning that you won&#8217;t be able to give a percentage of how much of the file has been downloaded.
 
-	Http.Get("https://jthorne.co.uk/httplib").DownloadTo(@"C:\httplib.html", onProgressChanged: (bytesCopied,totalBytes) =&gt; 
+	Http.Get("https://jthorne.co.uk/httplib").DownloadTo(@"C:\httplib.html", onProgressChanged: (bytesCopied,totalBytes) =>; 
 	{
 		if (totalBytes.HasValue)
 		{
@@ -106,7 +104,7 @@ If the server doesn&#8217;t reply with a content length header, the totalBytes v
 		}
 		Console.Write("Downloaded: " + bytesCopied.ToString() + " bytes");
 		},
-			onSuccess: (headers) =&gt;
+			onSuccess: (headers) =>
 		{
 			UpdateText("Download Complete");
 		}).Go();
