@@ -1,5 +1,9 @@
 HttpLib is a free (Apache 2.0 License) web request helper for .Net that makes it easier for developers to access and download resources from the internet.
 
+Master build ![build status master](https://ci.appveyor.com/api/projects/status/github/j6mes/httplib)
+
+Version 2.0.11 ![2.0.11](https://ci.appveyor.com/api/projects/status/cfxsekd76ap47fej/branch/2.0.11)
+
 ## About
 
 The library was first released in 2012 and has since had over 5500 downloads.
