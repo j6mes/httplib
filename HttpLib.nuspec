@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>HttpLib</id>
+        <version>0.0.0.0</version>
+        <title>HttpLib</title>
+        <authors>James Thorne (@j6mes)</authors>
+        <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+        <projectUrl>http://jthorne.co.uk</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>HttpLib is a free (Apache 2.0 License) web request helper for .Net that makes it easier for developers to access and download resources from the internet.
+
+- Supports most HTTP Verbs: GET / POST / PUT / DELETE and more
+- Upload and download files to disk
+- Progress monitor for file uploads/downloads
+- Completely asynchronous operation
+- Custom authentication providers can be added (currently supports basic auth)
+- Content stream can be customised
+- Cookies are static and persist between requests
+- Supported platforms: .Net4.0+ (WinForms, WCF, ASP.Net, Silverlight 5, Windows Phone 8.0+, Windows 8.0+).</description>
+        <releaseNotes>Now Compatable for Windows 8 Apps</releaseNotes>
+    </metadata>
+	<files>
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib\bin\Debug\JumpKick.HttpLib.dll" target="lib\net45" />
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib\bin\Debug\JumpKick.HttpLib.pdb" target="lib\net45" />
+		
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Portable\bin\Debug\JumpKick.HttpLib.Portable.dll" target="lib\netcore45+netcore451+wp81+wp8+wpa81" />
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Portable\bin\Debug\JumpKick.HttpLib.Portable.pdb" target="lib\netcore45+netcore451+wp81+wp8+wpa81" />
+		
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Slverlight\bin\Debug\JumpKick.HttpLib.Slverlight.dll" target="lib\sl50" />
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Slverlight\bin\Debug\JumpKick.HttpLib.Slverlight.pdb" target="lib\sl50" />
+	</files>
+</package>
