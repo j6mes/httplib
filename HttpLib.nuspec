@@ -23,11 +23,10 @@
 	<files>
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib\bin\Debug\JumpKick.HttpLib.dll" target="lib\net45" />
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib\bin\Debug\JumpKick.HttpLib.pdb" target="lib\net45" />
-		
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Portable\bin\Debug\JumpKick.HttpLib.Portable.dll" target="lib\netcore45+netcore451+wp81+wp8+wpa81" />
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Portable\bin\Debug\JumpKick.HttpLib.Portable.pdb" target="lib\netcore45+netcore451+wp81+wp8+wpa81" />
-		
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Siverlight\Bin\Debug\JumpKick.HttpLib.Siverlight.dll" target="lib\sl50" />
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Siverlight\Bin\Debug\JumpKick.HttpLib.Siverlight.pdb" target="lib\sl50" />
+
 	</files>
 </package>
