@@ -27,7 +27,7 @@
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Portable\bin\Debug\JumpKick.HttpLib.Portable.dll" target="lib\netcore45+netcore451+wp81+wp8+wpa81" />
 		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Portable\bin\Debug\JumpKick.HttpLib.Portable.pdb" target="lib\netcore45+netcore451+wp81+wp8+wpa81" />
 		
-		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Slverlight\bin\Debug\JumpKick.HttpLib.Slverlight.dll" target="lib\sl50" />
-		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Slverlight\bin\Debug\JumpKick.HttpLib.Slverlight.pdb" target="lib\sl50" />
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Slverlight\Bin\Debug\JumpKick.HttpLib.Slverlight.dll" target="lib\sl50" />
+		<file src="JumpKick.HttpLib\JumpKick.HttpLib.Slverlight\Bin\Debug\JumpKick.HttpLib.Slverlight.pdb" target="lib\sl50" />
 	</files>
 </package>
