@@ -118,7 +118,7 @@
                  * Create new Request
                  */
                 HttpWebRequest request = this.GetWebRequest(url);
-                request.CookieContainer = cookies;
+                request.CookieContainer = HttpLib.Cookies;
                 request.Method = method.ToString().ToUpper();
 
                 if (method == HttpVerb.Get || method == HttpVerb.Head) 
