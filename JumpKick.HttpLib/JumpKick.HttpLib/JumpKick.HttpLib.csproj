@@ -43,7 +43,11 @@
     <Compile Include="Builder\RequestBuilder.Body.cs" />
     <Compile Include="Builder\RequestBuilder.cs" />
     <Compile Include="Builder\RequestBuilder.Header.cs" />
+    <Compile Include="Collector\BaseCollector.cs" />
+    <Compile Include="Collector\Install.cs" />
+    <Compile Include="Collector\Usage.cs" />
     <Compile Include="Header.cs" />
+    <Compile Include="HttpLib.cs" />
     <Compile Include="NamedFileStream.cs" />
     <Compile Include="Provider\ActionProvider.cs" />
     <Compile Include="Provider\AuthenticationProvider.cs" />

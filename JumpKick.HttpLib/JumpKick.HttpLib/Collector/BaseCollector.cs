@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Collector
 {
-    class BaseCollector
+    public abstract class BaseCollector
     {
+        public static bool CollectStats = true;
+
+        protected abstract string id;
+        protected string collectUrl;
+
+        protected void Collect()
+        {
+            if (CollectStats)
+            {
+                Http.Post(collectUrl).Body(id).Go();
+            }
+        }
     }
 }

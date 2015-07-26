@@ -8,5 +8,6 @@ namespace JumpKick.HttpLib.Collector
 {
     public class Install : BaseCollector
     {
+        
     }
 }
