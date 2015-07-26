@@ -13,7 +13,6 @@
         protected HeaderProvider headers;
         protected AuthenticationProvider auth;
         protected BodyProvider body;
-        protected static CookieContainer cookies = new CookieContainer();
         protected ActionProvider action;
 
         public Request()
