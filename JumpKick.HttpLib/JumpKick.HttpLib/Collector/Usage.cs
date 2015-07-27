@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Collector
 {
-    public class Usage : BaseCollector
+    internal class Usage : BaseCollector
     {
 
+        protected override string CollectUrl
+        {
+            get { return BaseCollector.baseUrl + "/use"; }
+        }
     }
 }

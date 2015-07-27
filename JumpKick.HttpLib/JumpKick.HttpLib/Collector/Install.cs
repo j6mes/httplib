@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Collector
 {
-    public class Install : BaseCollector
+    internal class Install : BaseCollector
     {
-        
+        protected override string CollectUrl
+        {
+            get { return BaseCollector.baseUrl + "/install"; }
+        }
+
+        internal Install()
+        {
+            this.Collect(new Collection{ });
+        }
     }
 }

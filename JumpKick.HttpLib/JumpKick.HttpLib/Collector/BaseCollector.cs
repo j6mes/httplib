@@ -1,25 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Collector
 {
-    public abstract class BaseCollector
+    internal abstract class BaseCollector
     {
         public static bool CollectStats = true;
-
-        protected abstract static string id;
-        protected static string baseUrl = "http://stats.httplib.com/api/statis/collect";
+        
+        public static string baseUrl = "http://stats.httplib.com/api/stats/collect";
 
         protected abstract String CollectUrl {get;}
 
-        public static void Collect(Collection collection)
+        public void Collect(Collection collection)
         {
-            if (CollectStats)
+            collection.platformid = "";
+            collection.libversion = "";
+#if NETFX_CORE || SILVERLIGHT
+#else
+            collection.platformid = Assembly.GetAssembly(typeof(BaseCollector)).GetName().Version.ToString();
+            collection.libversion = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            collection.appname = Assembly.GetEntryAssembly().GetName().Name;
+            
+#endif
+            if (CollectStats && typeof(Install) == this.GetType()) 
             {
-                Http.Post(CollectUrl).Body(id).Go();
+                Http.Post(CollectUrl).Form(collection).OnSuccess(s => { }).OnFail(e => { }).Go();
+            }
+            else if (CollectStats && !(collection.slug as string).Contains("stats.httplib.com"))
+            {
+                Http.Post(CollectUrl).Form(collection).OnSuccess(s => { }).OnFail(e=>{}).Go();
             }
         }
     }
