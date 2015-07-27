@@ -5,6 +5,7 @@
     using System.IO;
     using System.Net;
     using JumpKick.HttpLib.Streams;
+    using JumpKick.HttpLib.Collector;
 
     public class Request
     {
@@ -13,6 +14,9 @@
         protected HeaderProvider headers;
         protected AuthenticationProvider auth;
         protected BodyProvider body;
+        private static BaseCollector use = new Usage();
+        private static BaseCollector install = new Install();
+
         protected ActionProvider action;
 
         public Request()
@@ -118,7 +122,7 @@
                  * Create new Request
                  */
                 HttpWebRequest request = this.GetWebRequest(url);
-                request.CookieContainer = HttpLib.Cookies;
+                request.CookieContainer = Cookies.Container;
                 request.Method = method.ToString().ToUpper();
 
                 if (method == HttpVerb.Get || method == HttpVerb.Head) 
@@ -139,11 +143,13 @@
 
         protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
         {
+            use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
             request.BeginGetResponse(ProcessCallback(action.Success, action.Fail), request);
         }
 
         protected virtual void ExecuteRequestWithBody(HttpWebRequest request)
         {
+            use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
             request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
             {
                 HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
@@ -173,7 +179,8 @@
                     using (HttpWebResponse response = (HttpWebResponse)webRequest.EndGetResponse(callbackResult))
                     {
                        // if (response.ContentLength > 0) { response.Headers.Add("Content-Length", response.ContentLength.ToString()); }
-                        success(response.Headers, response.GetResponseStream());
+                        if (success!=null )
+                            success(response.Headers, response.GetResponseStream());
                     }
 
                 }

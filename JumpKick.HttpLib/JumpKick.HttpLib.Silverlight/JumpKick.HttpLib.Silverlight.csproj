@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
@@ -71,6 +71,21 @@
     </Compile>
     <Compile Include="..\JumpKick.HttpLib\Builder\RequestBuilder.Header.cs">
       <Link>Builder\RequestBuilder.Header.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Collector\BaseCollector.cs">
+      <Link>Collector\BaseCollector.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Collector\Collection.cs">
+      <Link>Collector\Collection.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Collector\Install.cs">
+      <Link>Collector\Install.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Collector\Usage.cs">
+      <Link>Collector\Usage.cs</Link>
+    </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Cookies.cs">
+      <Link>Cookies.cs</Link>
     </Compile>
     <Compile Include="..\JumpKick.HttpLib\Header.cs">
       <Link>Header.cs</Link>

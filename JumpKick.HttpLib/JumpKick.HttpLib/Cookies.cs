@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib
 {
-    public class HttpLib 
+    public class Cookies
     {
         protected static CookieContainer cookies = new CookieContainer();
 
@@ -16,6 +16,6 @@ namespace JumpKick.HttpLib
             cookies = new CookieContainer();
         }
 
-        public static CookieContainer Cookies { get { return cookies; } }
+        public static CookieContainer Container { get { return cookies; } }
     }
 }

@@ -76,16 +76,34 @@ namespace JumpKick.HttpLib.Provider
                     if (enumerator.MoveNext())
                     {
                         var property = enumerator.Current;
-                        while (enumerator.MoveNext())
-                        {
-                            
-                            querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
-                            property = enumerator.Current;
-                            querystring.Append("&");
-                            
-                        }
-                        querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
-                            
+
+                        
+                            while (enumerator.MoveNext())
+                            {
+                                try
+                                {
+                                    querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
+                                    property = enumerator.Current;
+                                    querystring.Append("&");
+                                }
+                                catch (NullReferenceException e)
+                                {
+                                    querystring.Append(property.Name + "=");
+                                    property = enumerator.Current;
+                                    querystring.Append("&");
+                                }
+
+                            }
+                            try
+                            {
+                                querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
+                            }
+                            catch (NullReferenceException e)
+                            {
+                                querystring.Append(property.Name + "=");
+                            }
+                        
+                       
                     }
 
                     

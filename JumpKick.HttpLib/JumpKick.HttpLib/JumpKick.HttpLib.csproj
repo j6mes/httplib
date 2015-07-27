@@ -15,7 +15,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -43,8 +43,13 @@
     <Compile Include="Builder\RequestBuilder.Body.cs" />
     <Compile Include="Builder\RequestBuilder.cs" />
     <Compile Include="Builder\RequestBuilder.Header.cs" />
+    <Compile Include="Collector\BaseCollector.cs" />
+    <Compile Include="Collector\Collection.cs" />
+    <Compile Include="Collector\DisableCollector.cs" />
+    <Compile Include="Collector\Install.cs" />
+    <Compile Include="Collector\Usage.cs" />
     <Compile Include="Header.cs" />
-    <Compile Include="HttpLib.cs" />
+    <Compile Include="Cookies.cs" />
     <Compile Include="NamedFileStream.cs" />
     <Compile Include="Provider\ActionProvider.cs" />
     <Compile Include="Provider\AuthenticationProvider.cs" />
