@@ -55,6 +55,9 @@
     <Compile Include="..\JumpKick.HttpLib\Collector\Collection.cs">
       <Link>Collector\Collection.cs</Link>
     </Compile>
+    <Compile Include="..\JumpKick.HttpLib\Collector\DisableCollector.cs">
+      <Link>Collector\DisableCollector.cs</Link>
+    </Compile>
     <Compile Include="..\JumpKick.HttpLib\Collector\Install.cs">
       <Link>Collector\Install.cs</Link>
     </Compile>
