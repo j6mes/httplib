@@ -20,6 +20,8 @@ namespace JumpKick.HttpLib.Collector
             collection.platformid = "";
             collection.libversion = "";
 #if NETFX_CORE || SILVERLIGHT
+            collection.platformid = "portable";
+            
 #else
             collection.platformid = Assembly.GetAssembly(typeof(BaseCollector)).GetName().Version.ToString();
             collection.libversion = Assembly.GetEntryAssembly().GetName().Version.ToString();
