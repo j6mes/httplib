@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Collector
 {
-    public class Usage : BaseCollector
+    class Collection
     {
-
     }
 }

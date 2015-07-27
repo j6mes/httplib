@@ -10,14 +10,16 @@ namespace JumpKick.HttpLib.Collector
     {
         public static bool CollectStats = true;
 
-        protected abstract string id;
-        protected string collectUrl;
+        protected abstract static string id;
+        protected static string baseUrl = "http://stats.httplib.com/api/statis/collect";
 
-        protected void Collect()
+        protected abstract String CollectUrl {get;}
+
+        public static void Collect(Collection collection)
         {
             if (CollectStats)
             {
-                Http.Post(collectUrl).Body(id).Go();
+                Http.Post(CollectUrl).Body(id).Go();
             }
         }
     }
