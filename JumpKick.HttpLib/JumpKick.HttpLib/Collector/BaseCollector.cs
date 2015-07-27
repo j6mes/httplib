@@ -17,12 +17,17 @@ namespace JumpKick.HttpLib.Collector
 
         public void Collect(Collection collection)
         {
+           
             collection.platformid = "";
             collection.libversion = "";
 #if NETFX_CORE || SILVERLIGHT
             collection.platformid = "portable";
             
 #else
+            if (collection == null || Assembly.GetAssembly(typeof(BaseCollector)) == null || Assembly.GetEntryAssembly() == null)
+                return;
+
+
             collection.platformid = Assembly.GetAssembly(typeof(BaseCollector)).GetName().Version.ToString();
             collection.libversion = Assembly.GetEntryAssembly().GetName().Version.ToString();
             collection.appname = Assembly.GetEntryAssembly().GetName().Name;

@@ -143,13 +143,13 @@
 
         protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
         {
-            use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
+            if (use != null && request.RequestUri != null) use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
             request.BeginGetResponse(ProcessCallback(action.Success, action.Fail), request);
         }
 
         protected virtual void ExecuteRequestWithBody(HttpWebRequest request)
         {
-            use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
+            if(use!=null && request.RequestUri!=null) use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
             request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
             {
                 HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
