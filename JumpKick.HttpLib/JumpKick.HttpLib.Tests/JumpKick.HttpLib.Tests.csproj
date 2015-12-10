@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Builder\RequestBuilderTest.cs" />
+    <Compile Include="CookiesTest.cs" />
     <Compile Include="HeaderTest.cs" />
     <Compile Include="HttpTest.cs" />
     <Compile Include="NamedFileStreamTest.cs" />
