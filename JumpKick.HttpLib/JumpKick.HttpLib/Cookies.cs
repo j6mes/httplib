@@ -16,6 +16,11 @@ namespace JumpKick.HttpLib
             cookies = new CookieContainer();
         }
 
+        public static void SetCookies(CookieContainer cookieContainer)
+        {
+            cookies = cookieContainer;
+        }
+
         public static CookieContainer Container { get { return cookies; } }
     }
 }
