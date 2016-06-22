@@ -151,7 +151,7 @@
 
             foreach (Header h in headers)
             {
-                whc.Add(h.Name, h.Value);
+                whc[h.Name] = h.Value;
             }
             
             return whc;
