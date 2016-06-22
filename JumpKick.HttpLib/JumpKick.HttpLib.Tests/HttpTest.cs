@@ -99,7 +99,7 @@ namespace JumpKick.HttpLib.Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void TestWorkItem2660()
         {
-            String httpUrl = "http//derpsdafsdfsdadfadf.com/testes";
+            String httpUrl = "http//testurl.com/testes";
             Http.Post(httpUrl).Form(new { admin = "admin", password = "password" }).OnSuccess(response =>
              {
                  if(response==null)
