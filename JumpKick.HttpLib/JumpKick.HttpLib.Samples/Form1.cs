@@ -30,7 +30,7 @@ namespace JumpKick.HttpLib.Samples
 
         private void btnView_Click(object sender, EventArgs e)
         {
-            Http.Get(textBox1.Text).OnSuccess((string a) =>
+            Http.Get(textBox1.Text).Headers(new { test = "hi", test2 ="y"}).OnSuccess((string a) =>
             {
                 UpdateText(a);
             }).Go();

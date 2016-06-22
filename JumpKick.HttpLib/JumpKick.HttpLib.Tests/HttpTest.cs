@@ -95,6 +95,20 @@ namespace JumpKick.HttpLib.Tests
             Assert.AreEqual("a", b.Url);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void TestWorkItem2660()
+        {
+            String httpUrl = "http//derpsdafsdfsdadfadf.com/testes";
+            Http.Post(httpUrl).Form(new { admin = "admin", password = "password" }).OnSuccess(response =>
+             {
+                 if(response==null)
+                 {
+                     throw new NullReferenceException("null response");
+                 }
+
+             }).Go();
+        }
 
     }
 }

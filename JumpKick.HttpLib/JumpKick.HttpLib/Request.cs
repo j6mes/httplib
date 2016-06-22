@@ -124,6 +124,10 @@
                 HttpWebRequest request = this.GetWebRequest(url);
                 request.CookieContainer = Cookies.Container;
                 request.Method = method.ToString().ToUpper();
+                if (headers != null)
+                {
+                    request.Headers = GetHeadersFromProvider(headers.GetHeaders());
+                }
 
                 if (method == HttpVerb.Get || method == HttpVerb.Head) 
                 {
@@ -139,6 +143,18 @@
             {
                 action.Fail(webEx);
             }
+        }
+
+        private static WebHeaderCollection GetHeadersFromProvider(Header[] headers)
+        {
+            WebHeaderCollection whc = new WebHeaderCollection();
+
+            foreach (Header h in headers)
+            {
+                whc.Add(h.Name, h.Value);
+            }
+            
+            return whc;
         }
 
         protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
