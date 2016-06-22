@@ -40,9 +40,9 @@ namespace JumpKick.HttpLib.Samples
         {
             SaveFileDialog dlg = new SaveFileDialog();
 
-            if(dlg.ShowDialog()==DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                Http.Get(textBox1.Text).DownloadTo(dlg.FileName, onProgressChanged: (bytesCopied,totalBytes) => 
+                Http.Get(textBox1.Text).DownloadTo(dlg.FileName, onProgressChanged: (bytesCopied, totalBytes) =>
                     {
                         UpdateText(bytesCopied.ToString());
                     },
@@ -51,7 +51,7 @@ namespace JumpKick.HttpLib.Samples
                     UpdateText("Download Complete");
                 }).Go();
             }
-           
+        
         }
 
     }
