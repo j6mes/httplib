@@ -129,7 +129,7 @@
                     request.Headers = GetHeadersFromProvider(headers.GetHeaders());
                 }
 
-                if (method == HttpVerb.Get || method == HttpVerb.Head) 
+                if (method == HttpVerb.Get || method == HttpVerb.Head || body == null) 
                 {
                     ExecuteRequestWithoutBody(request);
                 } 

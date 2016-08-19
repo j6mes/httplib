@@ -97,7 +97,7 @@ namespace JumpKick.HttpLib.Tests
 
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void TestWorkItem2660()
+        public void TestThrowsExceptionWithInvalidURL()
         {
             String httpUrl = "http://testurl.com9/testes";
             Http.Post(httpUrl).Form(new { admin = "admin", password = "password" }).OnSuccess(response =>
@@ -108,6 +108,14 @@ namespace JumpKick.HttpLib.Tests
                  }
 
              }).Go();
+        }
+
+        [TestMethod]
+        public void TestDeleteMethodWithoutBodyDoesntThrowException()
+        {
+            Http.Delete("http://test.com").Go();
+
+
         }
 
     }
