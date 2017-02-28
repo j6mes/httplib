@@ -5,7 +5,6 @@
     using System.IO;
     using System.Net;
     using JumpKick.HttpLib.Streams;
-    using JumpKick.HttpLib.Collector;
 
     public class Request
     {
@@ -14,8 +13,6 @@
         protected HeaderProvider headers;
         protected AuthenticationProvider auth;
         protected BodyProvider body;
-        private static BaseCollector use = new Usage();
-        private static BaseCollector install = new Install();
 
         protected ActionProvider action;
 
@@ -159,13 +156,11 @@
 
         protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
         {
-            if (use != null && request.RequestUri != null) use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
             request.BeginGetResponse(ProcessCallback(action.Success, action.Fail), request);
         }
 
         protected virtual void ExecuteRequestWithBody(HttpWebRequest request)
         {
-            if(use!=null && request.RequestUri!=null) use.Collect(new Collection { slug = request.RequestUri.DnsSafeHost, method = request.Method });
             request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
             {
                 HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;

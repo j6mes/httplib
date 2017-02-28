@@ -72,21 +72,6 @@
     <Compile Include="..\JumpKick.HttpLib\Builder\RequestBuilder.Header.cs">
       <Link>Builder\RequestBuilder.Header.cs</Link>
     </Compile>
-    <Compile Include="..\JumpKick.HttpLib\Collector\BaseCollector.cs">
-      <Link>Collector\BaseCollector.cs</Link>
-    </Compile>
-    <Compile Include="..\JumpKick.HttpLib\Collector\Collection.cs">
-      <Link>Collector\Collection.cs</Link>
-    </Compile>
-    <Compile Include="..\JumpKick.HttpLib\Collector\DisableCollector.cs">
-      <Link>Collector\DisableCollector.cs</Link>
-    </Compile>
-    <Compile Include="..\JumpKick.HttpLib\Collector\Install.cs">
-      <Link>Collector\Install.cs</Link>
-    </Compile>
-    <Compile Include="..\JumpKick.HttpLib\Collector\Usage.cs">
-      <Link>Collector\Usage.cs</Link>
-    </Compile>
     <Compile Include="..\JumpKick.HttpLib\Cookies.cs">
       <Link>Cookies.cs</Link>
     </Compile>
