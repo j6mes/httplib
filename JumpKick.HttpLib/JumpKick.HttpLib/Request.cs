@@ -153,29 +153,42 @@
             
             return whc;
         }
-
+        
         protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
         {
-            request.BeginGetResponse(ProcessCallback(action.Success, action.Fail), request);
+            try
+            {
+                request.BeginGetResponse(ProcessCallback(action.Success, action.Fail), request);
+            } catch (WebException webex)
+            {
+                action.Fail(webex);
+            }
+
         }
 
         protected virtual void ExecuteRequestWithBody(HttpWebRequest request)
         {
-            request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
+            try
             {
-                HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
-                
-      
-                ProgressCallbackHelper copy = body.GetBody().CopyToProgress(tmprequest.EndGetRequestStream(callbackResult),null);
-                copy.ProgressChanged += (bytesSent, totalBytes) => { body.OnProgressChange(bytesSent, totalBytes); };
-                copy.Completed += (totalBytes) => { body.OnCompleted(totalBytes); };
-                copy.Go();
+                request.BeginGetRequestStream(new AsyncCallback((IAsyncResult callbackResult) =>
+                {
+                    HttpWebRequest tmprequest = (HttpWebRequest)callbackResult.AsyncState;
+
+
+                    ProgressCallbackHelper copy = body.GetBody().CopyToProgress(tmprequest.EndGetRequestStream(callbackResult), null);
+                    copy.ProgressChanged += (bytesSent, totalBytes) => { body.OnProgressChange(bytesSent, totalBytes); };
+                    copy.Completed += (totalBytes) => { body.OnCompleted(totalBytes); };
+                    copy.Go();
 
                 // Start the asynchronous operation to get the response
                 tmprequest.BeginGetResponse(ProcessCallback(action.Success, action.Fail), tmprequest);
 
 
-            }), request);
+                }), request);
+            } catch (WebException webex)
+            {
+                action.Fail(webex);
+            }
         }
 
 

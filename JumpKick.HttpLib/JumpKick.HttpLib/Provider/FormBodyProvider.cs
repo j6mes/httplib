@@ -5,6 +5,7 @@ namespace JumpKick.HttpLib.Provider
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using System.Runtime.Serialization;
     using System.Text;
 
     public class FormBodyProvider : DefaultBodyProvider
@@ -92,8 +93,14 @@ namespace JumpKick.HttpLib.Provider
                                     property = enumerator.Current;
                                     querystring.Append("&");
                                 }
+                                catch (TargetInvocationException t)
+                                {
 
+                                    throw new SerializationException("Unable to serialise property " + property.Name, t);
+                                }
                             }
+
+                            
                             try
                             {
                                 querystring.Append(property.Name + "=" + System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString()));
@@ -102,8 +109,12 @@ namespace JumpKick.HttpLib.Provider
                             {
                                 querystring.Append(property.Name + "=");
                             }
-                        
-                       
+                            catch (TargetInvocationException t)
+                            {
+                                throw new SerializationException("Unable to serialise property " + property.Name, t);
+                            }
+
+
                     }
 
                     

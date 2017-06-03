@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,11 @@ namespace JumpKick.HttpLib.Samples
                     onSuccess: (headers) =>
                 {
                     UpdateText("Download Complete");
-                }).Go();
+                }).OnFail(ex=>
+                {
+                    Debug.Print(ex.ToString());
+                }
+                ).Go();
             }
         
         }

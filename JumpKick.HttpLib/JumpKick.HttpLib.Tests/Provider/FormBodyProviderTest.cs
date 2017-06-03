@@ -3,12 +3,19 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JumpKick.HttpLib.Provider;
 using System.IO;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace JumpKick.HttpLib.Tests.Provider
 {
     [TestClass]
     public class FormBodyProviderTest
     {
+
+        public class TestObject
+        {
+            public String a { get { throw new NullReferenceException("test");} }
+            public int b { get { return 0;  } }
+        }
 
         FormBodyProvider provider;
 
@@ -39,6 +46,16 @@ namespace JumpKick.HttpLib.Tests.Provider
         {
             Assert.AreEqual("a=b&c=d", FormBodyProvider.SerializeQueryString(new { a = "b", c = "d" }));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(SerializationException))]
+
+        public void TestSerializeObjectWithNullValue()
+        {
+            FormBodyProvider.SerializeQueryString(new TestObject());
+        }
+
+  
 
         [TestMethod]
         public void TestObjectSerializerCreatesSingleItemQueryString()
