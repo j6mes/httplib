@@ -2,11 +2,11 @@ HttpLib is a free (Apache 2.0 License) web request helper for .Net that makes it
 
 Dev build ![build status master](https://ci.appveyor.com/api/projects/status/github/j6mes/httplib)
 
-Version 2.0.15 ![2.0.15](https://ci.appveyor.com/api/projects/status/cfxsekd76ap47fej/branch/2.0.15)
+Version 2.0.15 ![2.0.16](https://ci.appveyor.com/api/projects/status/cfxsekd76ap47fej/branch/2.0.16)
 
 ## About
 
-The library was first released in 2012 and has since had over 5500 downloads.
+The library was first released in 2012 and has since had over 50,000 downloads.
 
 #### Download
 
@@ -18,7 +18,7 @@ Source code is available on [GitHub](https://github.com/j6mes/httplib/ "Download
 
 #### Latest Release:
 
-The most recent release is **2.0.15** which supports the following features:
+The most recent release is **2.0.16** which supports the following features:
 
 *   Supports most HTTP Verbs: GET / POST / PUT / DELETE and more
 *   Upload and download files to disk
@@ -30,6 +30,7 @@ The most recent release is **2.0.15** which supports the following features:
 *   Bug fix 16 - setting custom headers
 *   Bug fix 17 - sending request without body
 *   Request 18 - removed stats collection 
+*   Bug fix 20 - multipart form boundary
 
 Supported platforms: .Net4.0+ (WinForms, WCF, ASP.Net, Silverlight 5, Windows Phone 8.0+, Windows 8.0+).
 

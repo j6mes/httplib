@@ -55,7 +55,7 @@ namespace JumpKick.HttpLib.Tests.Provider
         [TestMethod]
         public void TestContentType()
         {
-            Assert.AreEqual("multipart/form-data, boundary=" + provider.GetBoundary(), provider.GetContentType());
+            Assert.AreEqual("multipart/form-data; boundary=" + provider.GetBoundary(), provider.GetContentType());
         }
 
         [TestMethod]

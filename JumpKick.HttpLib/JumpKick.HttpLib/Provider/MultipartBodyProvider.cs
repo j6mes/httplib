@@ -34,7 +34,7 @@ namespace JumpKick.HttpLib.Provider
 
         public override string GetContentType()
         {
-            return string.Format("multipart/form-data, boundary={0}", boundary);
+            return string.Format("multipart/form-data; boundary={0}", boundary);
         }
 
         public string GetBoundary()
