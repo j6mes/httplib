@@ -2,7 +2,7 @@ HttpLib is a free (Apache 2.0 License) web request helper for .Net that makes it
 
 Dev build ![build status master](https://ci.appveyor.com/api/projects/status/github/j6mes/httplib)
 
-Version 2.0.15 ![2.0.16](https://ci.appveyor.com/api/projects/status/cfxsekd76ap47fej/branch/2.0.16)
+Version 2.0.166666.0.16](https://ci.appveyor.com/api/projects/status/cfxsekd76ap47fej/branch/2.0.16)
 
 ## About
 
