@@ -50,7 +50,7 @@ namespace JumpKick.HttpLib.Provider
 
         public override Stream GetBody()
         {
-            writer.Write("\n");
+            writer.Write("\r\n");
 
             /*
              * Serialize parameters in multipart manner
@@ -69,7 +69,7 @@ namespace JumpKick.HttpLib.Provider
                     while (enumerator.MoveNext())
                     {
                         var property = enumerator.Current;
-                        writer.Write(string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"\n\n{2}\n", boundary, System.Uri.EscapeDataString(property.Name), System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
+                        writer.Write(string.Format("--{0}\r\ncontent-disposition: form-data; name=\"{1}\"\r\n\r\n{2}\r\n", boundary, System.Uri.EscapeDataString(property.Name), System.Uri.EscapeDataString(property.GetValue(parameters, null).ToString())));
                         writer.Flush();
                     }
                 }
@@ -78,7 +78,7 @@ namespace JumpKick.HttpLib.Provider
             /*
              * A boundary string that we'll reuse to separate files
              */
-            string closing = string.Format("\n--{0}--\n", boundary);
+            string closing = string.Format("\r\n--{0}--\r\n", boundary);
 
 
             /*
@@ -89,7 +89,7 @@ namespace JumpKick.HttpLib.Provider
                 /*
                  * Additional info that is prepended to the file
                  */
-                string separator = string.Format("--{0}\ncontent-disposition: form-data; name=\"{1}\"; filename=\"{2}\"\nContent-Type: {3}\n\n",boundary,file.Name,file.Filename,file.ContentType);
+                string separator = string.Format("--{0}\r\ncontent-disposition: form-data; name=\"{1}\"; filename=\"{2}\"\r\nContent-Type: {3}\r\n\r\n",boundary,file.Name,file.Filename,file.ContentType);
                 writer.Write(separator);
                 writer.Flush();
 
