@@ -75,7 +75,7 @@ namespace JumpKick.HttpLib.Tests.Provider
             StreamReader r = new StreamReader(provider.GetBody());
             String content = r.ReadToEnd();
 
-            Assert.IsTrue(content.StartsWith("\n"));
+            Assert.IsTrue(content.StartsWith("\r\n"));
         }
 
 
