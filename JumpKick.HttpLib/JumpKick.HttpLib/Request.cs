@@ -121,7 +121,7 @@
                 HttpWebRequest request = this.GetWebRequest(url);
                 request.CookieContainer = Cookies.Container;
                 request.Method = method.ToString().ToUpper();
-                if (action.Make != null)
+                if (action != null && action.Make != null)
                     action.Make(request); //Pass the request out
 
                 if (headers != null)
