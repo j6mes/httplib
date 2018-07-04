@@ -126,6 +126,8 @@
                     request.Headers = GetHeadersFromProvider(headers.GetHeaders());
                 }
 
+                action.Make(request); //Pass the request out
+
                 if (method == HttpVerb.Get || method == HttpVerb.Head || body == null) 
                 {
                     ExecuteRequestWithoutBody(request);
