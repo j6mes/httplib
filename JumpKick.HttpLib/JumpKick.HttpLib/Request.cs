@@ -121,12 +121,13 @@
                 HttpWebRequest request = this.GetWebRequest(url);
                 request.CookieContainer = Cookies.Container;
                 request.Method = method.ToString().ToUpper();
+                if (action.Make != null)
+                    action.Make(request); //Pass the request out
+
                 if (headers != null)
                 {
                     request.Headers = GetHeadersFromProvider(headers.GetHeaders());
                 }
-
-                action.Make(request); //Pass the request out
 
                 if (method == HttpVerb.Get || method == HttpVerb.Head || body == null) 
                 {
