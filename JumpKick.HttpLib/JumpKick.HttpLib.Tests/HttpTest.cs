@@ -118,5 +118,17 @@ namespace JumpKick.HttpLib.Tests
 
         }
 
+        [TestMethod]
+        public void TestMakeActionIsEnter()
+        {
+            bool isEnter = false;
+            Http.Get("http://test.com").OnMake((hwr) =>
+            {
+                hwr.AddRange(0, 100);
+                isEnter = true;
+            }).Go();
+            Assert.IsTrue(isEnter);
+        }
+
     }
 }

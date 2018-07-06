@@ -10,6 +10,7 @@ namespace JumpKick.HttpLib.Provider
 {
     public interface ActionProvider
     {
+        Action<HttpWebRequest> Make { get; }
         Action<WebHeaderCollection, Stream> Success {get;}
         Action<WebException> Fail { get; }
     }

@@ -10,6 +10,11 @@ namespace JumpKick.HttpLib.Provider
 {
     public class NonActionProvider : ActionProvider
     {
+        public Action<HttpWebRequest> Make
+        {
+            get { return (a) => { }; }
+        }
+
         public Action<WebHeaderCollection, Stream> Success
         {
             get { return (a, b) => { }; }

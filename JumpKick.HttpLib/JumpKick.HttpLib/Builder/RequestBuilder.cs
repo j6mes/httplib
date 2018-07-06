@@ -24,13 +24,13 @@ namespace JumpKick.HttpLib.Builder
 
 
         public void Go()
-        { 
+        {
             /*
              * If an actionprovider has not been set, we create one.
              */
-            if(this.actionProvider == null)
+            if (this.actionProvider == null)
             {
-                this.actionProvider = new SettableActionProvider(success, fail);
+                this.actionProvider = new SettableActionProvider(success, fail, make);
             }
 
             Request req = new Request

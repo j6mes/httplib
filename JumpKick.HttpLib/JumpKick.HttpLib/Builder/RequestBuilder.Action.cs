@@ -20,6 +20,8 @@ namespace JumpKick.HttpLib.Builder
         ActionProvider actionProvider;
         Action<WebHeaderCollection, Stream> success;
         Action<WebException> fail;
+        Action<HttpWebRequest> make;
+
         public RequestBuilder OnSuccess(Action<WebHeaderCollection, String> action)
         {
             this.success = (headers, stream) =>
@@ -158,9 +160,11 @@ namespace JumpKick.HttpLib.Builder
 
 #endif
 
-
-
-
+        public RequestBuilder OnMake(Action<HttpWebRequest> action)
+        {
+            make = action;
+            return this;
+        }
 
 
         public RequestBuilder OnFail(Action<WebException> action)
