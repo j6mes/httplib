@@ -126,7 +126,7 @@
 
                 if (headers != null)
                 {
-                    request.Headers = GetHeadersFromProvider(headers.GetHeaders());
+                    request.Headers = GetHeadersFromProvider(request.RequestUri, headers.GetHeaders());
                 }
 
                 if (method == HttpVerb.Get || method == HttpVerb.Head || body == null) 
@@ -145,17 +145,31 @@
             }
         }
 
-        private static WebHeaderCollection GetHeadersFromProvider(Header[] headers)
+        private static WebHeaderCollection GetHeadersFromProvider(Uri uri, Header[] headers) 
         {
             WebHeaderCollection whc = new WebHeaderCollection();
 
-            foreach (Header h in headers)
+            foreach (Header h in headers) 
             {
-                whc[h.Name] = h.Value;
+                if (string.Compare(h.Name, "cookie", true) == 0) 
+                {
+                    var cookiePairs = h.Value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var cookiePair in cookiePairs) 
+                    {
+                        var kvp = cookiePair.Split(new[] { '=' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                        if (kvp.Length < 2) continue;
+                        Cookies.Container.Add(new Cookie(kvp[0], kvp[1]) { Domain = uri.Host });
+                    }
+                } 
+                else 
+                {
+                    whc[h.Name] = h.Value;
+                }
             }
-            
+
             return whc;
         }
+
 
         protected virtual void ExecuteRequestWithoutBody(HttpWebRequest request)
         {
