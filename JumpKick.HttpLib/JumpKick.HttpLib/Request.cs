@@ -151,14 +151,14 @@
 
             foreach (Header h in headers) 
             {
-                if (string.Compare(h.Name, "cookie", true) == 0) 
+                if (h.Name.ToUpperInvariant() == "COOKIE") 
                 {
                     var cookiePairs = h.Value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var cookiePair in cookiePairs) 
+                    foreach (var cookiePair in cookiePairs)
                     {
-                        var kvp = cookiePair.Split(new[] { '=' }, 2, StringSplitOptions.RemoveEmptyEntries);
-                        if (kvp.Length < 2) continue;
-                        Cookies.Container.Add(new Cookie(kvp[0], kvp[1]) { Domain = uri.Host });
+                        var index = cookiePair.IndexOf('=');
+
+                        Cookies.Container.Add(uri, new Cookie(cookiePair.Substring(0, index), cookiePair.Substring(index + 1, cookiePair.Length - index - 1)) { Domain = uri.Host });
                     }
                 } 
                 else 
