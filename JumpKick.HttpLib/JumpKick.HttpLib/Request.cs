@@ -5,6 +5,8 @@
     using System.IO;
     using System.Net;
     using JumpKick.HttpLib.Streams;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class Request
     {
@@ -15,6 +17,11 @@
         protected BodyProvider body;
 
         protected ActionProvider action;
+
+        /// <summary>
+        /// Using for GoAsync() to await.
+        /// </summary>
+        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(0);
 
         public Request()
         {
@@ -100,6 +107,11 @@
             MakeRequest();
         }
 
+        public async Task GoAsync(int millisecondsTimeout)
+        {
+            MakeRequest();
+            await _semaphore.WaitAsync(millisecondsTimeout);
+        }
 
         protected virtual HttpWebRequest GetWebRequest(string url)
         {
@@ -141,6 +153,7 @@
             }
             catch (WebException webEx)
             {
+                _semaphore.Release();//for GoAsync()
                 action.Fail(webEx);
             }
         }
@@ -216,6 +229,10 @@
                 {
                     fail(webEx);
                 }
+                finally
+                {
+                    _semaphore.Release();//for GoAsync()
+                }               
             });
         }
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace JumpKick.HttpLib.Tests
@@ -128,6 +129,78 @@ namespace JumpKick.HttpLib.Tests
                 isEnter = true;
             }).Go();
             Assert.IsTrue(isEnter);
+        }
+
+        private async void DoGoAsyncTest(SemaphoreSlim sem)
+        {
+            int doneCount = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                await Http.Get("https://bing.com").OnMake((req) => { req.Timeout = 50; })
+                    .OnSuccess((text) =>
+                    {
+                        Assert.IsNotNull(text);
+                        Assert.IsTrue(text.Length > 0);
+                        doneCount++;
+                    }).OnFail((e) =>
+                    {
+                        doneCount++;
+                    }).GoAsync();
+
+                //should be executed once time and done once time
+                Assert.IsTrue(doneCount == i + 1);
+            }
+
+            //notify all test done
+            sem.Release();
+        }
+
+        [TestMethod]
+        public void TestGoAsync()
+        {
+            SemaphoreSlim semaphore = new SemaphoreSlim(0);
+            Task.Run(() =>
+            {
+                DoGoAsyncTest(semaphore);
+            });
+
+            //wait DoGoAsyncTest() done
+            semaphore.Wait();
+        }
+
+        private async void DoGoAsyncErrorTest(SemaphoreSlim sem)
+        {
+            int doneCount = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    await Http.Get("1://123.com").GoAsync();
+                }
+                catch (Exception)
+                {
+                }
+
+                doneCount++;
+                //should be executed once time and done once time
+                Assert.IsTrue(doneCount == i + 1);
+            }
+
+            //notify all test done
+            sem.Release();
+        }
+
+        [TestMethod]
+        public void TestGoAsyncError()
+        {
+            SemaphoreSlim semaphore = new SemaphoreSlim(0);
+            Task.Run(() =>
+            {
+                DoGoAsyncErrorTest(semaphore);
+            });
+
+            //wait DoGoAsyncErrorTest() done
+            semaphore.Wait();
         }
 
     }

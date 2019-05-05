@@ -47,7 +47,28 @@ namespace JumpKick.HttpLib.Builder
             
         }
 
+        public async Task GoAsync(int millisecondsTimeout = -1)
+        {
+            /*
+             * If an actionprovider has not been set, we create one.
+             */
+            if (this.actionProvider == null)
+            {
+                this.actionProvider = new SettableActionProvider(success, fail, make);
+            }
 
+            Request req = new Request
+            {
+                Url = url,
+                Method = method,
+                Action = actionProvider,
+                Auth = authProvider,
+                Headers = headerProvider,
+                Body = bodyProvider
+            };
+
+            await req.GoAsync(millisecondsTimeout);
+        }
 
 
 
