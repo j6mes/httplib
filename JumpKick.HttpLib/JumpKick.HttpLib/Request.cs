@@ -18,10 +18,12 @@
 
         protected ActionProvider action;
 
+#if USE_SEMAPHORE_SLIM
         /// <summary>
         /// Using for GoAsync() to await.
         /// </summary>
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(0);
+#endif
 
         public Request()
         {
@@ -107,11 +109,13 @@
             MakeRequest();
         }
 
+#if USE_SEMAPHORE_SLIM
         public async Task GoAsync(int millisecondsTimeout)
         {
             MakeRequest();
             await _semaphore.WaitAsync(millisecondsTimeout);
         }
+#endif
 
         protected virtual HttpWebRequest GetWebRequest(string url)
         {
@@ -153,7 +157,9 @@
             }
             catch (WebException webEx)
             {
+#if USE_SEMAPHORE_SLIM
                 _semaphore.Release();//for GoAsync()
+#endif               
                 action.Fail(webEx);
             }
         }
@@ -231,7 +237,9 @@
                 }
                 finally
                 {
+#if USE_SEMAPHORE_SLIM
                     _semaphore.Release();//for GoAsync()
+#endif
                 }               
             });
         }

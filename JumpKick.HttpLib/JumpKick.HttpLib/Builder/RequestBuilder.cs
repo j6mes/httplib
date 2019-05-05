@@ -47,6 +47,7 @@ namespace JumpKick.HttpLib.Builder
             
         }
 
+#if USE_SEMAPHORE_SLIM
         public async Task GoAsync(int millisecondsTimeout = -1)
         {
             /*
@@ -69,7 +70,7 @@ namespace JumpKick.HttpLib.Builder
 
             await req.GoAsync(millisecondsTimeout);
         }
-
+#endif
 
 
         public HttpVerb Method { get { return method; } }
