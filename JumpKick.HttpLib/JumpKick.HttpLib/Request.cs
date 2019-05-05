@@ -159,8 +159,11 @@
             {
 #if USE_SEMAPHORE_SLIM
                 _semaphore.Release();//for GoAsync()
-#endif               
-                action.Fail(webEx);
+#endif          
+                if (action != null && action.Make != null)     
+                    action.Fail(webEx);
+                else
+                    throw webEx;//better then a null Exception
             }
         }
 
@@ -233,7 +236,10 @@
                 }
                 catch (WebException webEx)
                 {
-                    fail(webEx);
+                    if (fail != null)   
+                        fail(webEx);
+                    else
+                        throw webEx;//better then a null Exception
                 }
                 finally
                 {
