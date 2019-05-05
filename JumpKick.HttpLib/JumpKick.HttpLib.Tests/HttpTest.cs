@@ -103,7 +103,7 @@ namespace JumpKick.HttpLib.Tests
             String httpUrl = "http://testurl.com9/testes";
             Http.Post(httpUrl).Form(new { admin = "admin", password = "password" }).OnSuccess(response =>
              {
-                 if(response==null)
+                 if (response == null)
                  {
                      throw new NullReferenceException("null response");
                  }
@@ -202,6 +202,148 @@ namespace JumpKick.HttpLib.Tests
             //wait DoGoAsyncErrorTest() done
             semaphore.Wait();
         }
+
+        //download a image
+        private string _downloadToTestURL = "https://ci.appveyor.com/api/projects/status/cfxsekd76ap47fej/branch/2.0.16";
+        private string _downloadToTestFileName = "downloadfile";
+
+        private void ClearDownloadToTestFile()
+        {
+            if (System.IO.File.Exists(_downloadToTestFileName))
+                System.IO.File.Delete(_downloadToTestFileName);
+        }
+
+        [TestMethod]
+        public void TestDownloadTo3Param()
+        {
+            ClearDownloadToTestFile();
+            bool isDone = false;
+            Http.Get(_downloadToTestURL).DownloadTo(_downloadToTestFileName,
+                    onProgressChanged: (bytesCopied, totalBytes) => { },
+                    onSuccess: (headers) =>
+                    {
+                        System.IO.FileInfo fi = new System.IO.FileInfo(_downloadToTestFileName);
+                        Assert.IsTrue(fi.Exists);
+                        int len = Convert.ToInt32(headers["Content-Length"]);
+                        Assert.IsTrue(fi.Length == len);
+                        isDone = true;
+                    }
+                    ).OnFail((e) =>
+                    {
+                        Assert.Fail();
+                        isDone = true;
+                    }).Go();
+            while (!isDone)
+            {
+                Thread.Sleep(100);
+            }
+            ClearDownloadToTestFile();
+
+        }
+
+        [TestMethod]
+        public void TestDownloadTo2ParamAnd1Param()
+        {
+            int len = 0;//fileLen
+            ClearDownloadToTestFile();
+            bool isDone = false;
+            Http.Get(_downloadToTestURL).DownloadTo(_downloadToTestFileName,
+                    onSuccess: (headers) =>
+                    {
+                        System.IO.FileInfo fi2p = new System.IO.FileInfo(_downloadToTestFileName);
+                        Assert.IsTrue(fi2p.Exists);
+                        len = Convert.ToInt32(headers["Content-Length"]);
+                        Assert.IsTrue(fi2p.Length == len);
+                        isDone = true;
+                    }
+                    ).OnFail((e) =>
+                    {
+                        Assert.Fail();
+                        isDone = true;
+                    }).Go();
+            while (!isDone)
+            {
+                Thread.Sleep(100);
+            }
+            ClearDownloadToTestFile();
+
+            isDone = false;
+            Http.Get(_downloadToTestURL).DownloadTo(_downloadToTestFileName).OnFail((e) =>
+            {
+                Assert.Fail();
+                isDone = true;
+            }).Go();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                if (isDone)
+                {
+                    break;
+                }
+
+                System.IO.FileInfo fi1p = new System.IO.FileInfo(_downloadToTestFileName);
+                if (!fi1p.Exists || fi1p.Length != len)
+                    Thread.Sleep(100); // wait download done;
+                else
+                    break;
+            }
+
+            System.IO.FileInfo fi = new System.IO.FileInfo(_downloadToTestFileName);
+            Assert.IsTrue(fi.Length == len);
+
+            ClearDownloadToTestFile();
+        }
+
+        private async void DoDownloadToGoAsyncTest(SemaphoreSlim sem)
+        {
+            int doneCount = 0;
+            int len = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                ClearDownloadToTestFile();//delete file
+
+                //DownloadTo() has 2 param
+                await Http.Get(_downloadToTestURL).DownloadTo(_downloadToTestFileName, onSuccess: (headers) =>
+                {
+                    System.IO.FileInfo fi2p = new System.IO.FileInfo(_downloadToTestFileName);
+                    Assert.IsTrue(fi2p.Exists);
+                    len = Convert.ToInt32(headers["Content-Length"]);
+                    Assert.IsTrue(fi2p.Length == len);
+
+                }).OnFail((e) => { }).GoAsync();
+
+                ClearDownloadToTestFile();//delete file
+
+                //DownloadTo() has 1 param
+                await Http.Get(_downloadToTestURL).DownloadTo(_downloadToTestFileName).OnFail((e) => { }).GoAsync();
+
+                System.IO.FileInfo fi1p = new System.IO.FileInfo(_downloadToTestFileName);
+                Assert.IsTrue(fi1p.Exists);
+                Assert.IsTrue(fi1p.Length == len);
+
+                doneCount++;
+                //should be executed once time and done once time
+                Assert.IsTrue(doneCount == i + 1);
+            }
+
+            ClearDownloadToTestFile();//delete file
+            //notify all test done
+            sem.Release();
+        }
+
+        [TestMethod]
+        public void TestDownloadToGoAsync()
+        {
+            SemaphoreSlim semaphore = new SemaphoreSlim(0);
+            Task.Run(() =>
+            {
+                DoDownloadToGoAsyncTest(semaphore);
+            });
+
+            //wait DoGoAsyncTest() done
+            semaphore.Wait();
+        }
+
 
     }
 }

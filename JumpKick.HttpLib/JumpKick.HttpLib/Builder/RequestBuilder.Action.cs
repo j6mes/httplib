@@ -87,7 +87,7 @@ namespace JumpKick.HttpLib.Builder
                 FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate);
                 ProgressCallbackHelper operation = result.CopyToProgress(fs,length);
                 operation.Completed += (totalbytes)=>{fs.Close();};
-
+                operation.Go();
             };
             return this;
 
@@ -105,7 +105,7 @@ namespace JumpKick.HttpLib.Builder
 
                 operation.ProgressChanged += (copied, total) => { OnProgressChanged(copied, total); };
                 operation.Completed += (totalbytes) => { fs.Close(); };
-
+                operation.Go();
             };
             return this;
 
@@ -123,7 +123,7 @@ namespace JumpKick.HttpLib.Builder
                 ProgressCallbackHelper operation = result.CopyToProgress(fs, length);
 
                 operation.Completed += (totalbytes) => { fs.Close(); onSuccess(headers); };
-
+                operation.Go();
                
             };
             return this;
