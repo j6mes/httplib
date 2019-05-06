@@ -160,7 +160,7 @@
 #if USE_SEMAPHORE_SLIM
                 _semaphore.Release();//for GoAsync()
 #endif          
-                if (action != null && action.Make != null)     
+                if (action != null && action.Fail != null)     
                     action.Fail(webEx);
                 else
                     throw webEx;//better then a null Exception
