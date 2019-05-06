@@ -96,7 +96,7 @@ namespace JumpKick.HttpLib.Builder
                 if (headers.AllKeys.Contains("Content-Length")) { length = long.Parse(headers["Content-Length"]); }
 
                 FileInfo fi = new FileInfo(filePath);
-                if (fi.Directory.Exists)
+                if (!fi.Directory.Exists)
                 {
                     Directory.CreateDirectory(fi.Directory.FullName);
                 }
