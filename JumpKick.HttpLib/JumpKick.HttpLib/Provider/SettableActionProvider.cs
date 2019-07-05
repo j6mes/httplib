@@ -17,6 +17,10 @@ namespace JumpKick.HttpLib.Provider
 
         public SettableActionProvider(Action<WebHeaderCollection, Stream> success, Action<WebException> fail, Action<HttpWebRequest> make = null)
         {
+            this.make = make;
+            this.success = success;
+            this.fail = fail;
+
             if (success == null)
             {
                 this.success = nonaction.Success;
@@ -31,10 +35,6 @@ namespace JumpKick.HttpLib.Provider
             {
                 this.make = nonaction.Make;
             }
-
-            this.make = make;
-            this.success = success;
-            this.fail = fail;
         }
 
         public Action<WebHeaderCollection, Stream> Success

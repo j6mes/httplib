@@ -96,7 +96,7 @@ namespace JumpKick.HttpLib.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
+        [ExpectedException(typeof(System.Net.WebException))]
         public void TestThrowsExceptionWithInvalidURL()
         {
             String httpUrl = "http://testurl.com9/testes";
@@ -104,7 +104,7 @@ namespace JumpKick.HttpLib.Tests
              {
                  if(response==null)
                  {
-                     throw new NullReferenceException("null response");
+                     throw new System.Net.WebException("null response");
                  }
 
              }).Go();
